@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Welcome from './src/screens/WelcomeScreen/Welcome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
+import HomeTeacher from "./src/screens/HomeScreen/HomeScreenTeacher/index"
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -56,14 +57,22 @@ export default function App() {
 
   if (loading) return null;
 
-  
+  //Test IntroSlide
+  // return (
+  //   <>
+  //     <StatusBar style="light" />
+  //     <Welcome onDone={handleDone} slides={slides} />
+  //   </>
+  // )
+
   return (
     <>
       <StatusBar style="light" />
-      <Welcome onDone={handleDone} slides={slides} />
+      <HomeTeacher />
     </>
   )
 
+  /**Check isFirstTimeLoad App */
   // if (!isFirstTimeLoad)
   //   return (
   //     <>
