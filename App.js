@@ -4,6 +4,7 @@ import Welcome from './src/screens/WelcomeScreen/Welcome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import HomeTeacher from "./src/screens/HomeScreen/HomeScreenTeacher/index"
+import ClassTeacher from "./src/screens/ClassScreen/ClassScreenTeacher/index"
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -68,7 +69,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <HomeTeacher />
+      <ClassTeacher />
     </>
   )
 

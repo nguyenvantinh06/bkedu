@@ -6,7 +6,7 @@ return (
     <View style={styles.center}>
       <Text>This is the home screen</Text>
       <Button title="Go to Class Screen" 
-        onPress={() => navigation.navigate("Class")}
+        onPress={() => navigation.navigate("DetailClass")}
       />
     </View>
     );
