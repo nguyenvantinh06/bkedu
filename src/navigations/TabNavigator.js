@@ -39,7 +39,7 @@ const BottomTabNavigatorTeacher = () => {
       },
       tabBarActiveTintColor: '#00A9B7',
       tabBarInactiveTintColor: '#B5B5B5',
-    }), screenOptionStyle}>
+    })}>
       <TabBottomTeacher.Screen name="Home" component={MainStackNavigatorTeacherScreen} options={{title:'Trang chủ', headerShown: false}} />
       <TabBottomTeacher.Screen name="Profile" component={ProfileStackNavigatorTeacherScreen} options={{title:'Trang cá nhân', headerShown: false}}/>
     </TabBottomTeacher.Navigator>

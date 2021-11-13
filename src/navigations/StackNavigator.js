@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from "react-native"
+import {Button, Alert} from "react-native"
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreenTeacher from "../screens/HomeScreen/HomeScreenTeacher/HomeScreenTeacher";
 import ClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ClassScreenTeacher";
@@ -18,7 +18,7 @@ const screenOptionStyle = {
   headerTintColor: "white",
   headerBackTitle: "Back",
   headerTitleAlign: "center",
-  headerRight: () => <Ionicons style={{right:10}} name="notifications" size={24} color="white" />
+  headerRight: () => <Ionicons style={{right:10}} name="notifications" size={24} color="white" onPress={() => Alert.alert('Notification icon pressed')} />
 };
 
 const MainStackNavigatorTeacher = createStackNavigator();
