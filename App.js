@@ -69,7 +69,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <HomeTeacher />
+      <ClassTeacher />
     </>
   )
 

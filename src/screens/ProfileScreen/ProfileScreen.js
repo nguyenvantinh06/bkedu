@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius:5,
         justifyContent: 'center',
+        marginTop: 5,
     },
     box:{
         borderColor: 'black',
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius:5,
         justifyContent: 'center',
+        marginTop: 5,
     },
     buttonContain: {
         flex:1,
