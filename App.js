@@ -6,6 +6,9 @@ import { StatusBar } from 'expo-status-bar';
 import HomeTeacher from "./src/screens/HomeScreen/HomeScreenTeacher/index"
 import ClassTeacher from "./src/screens/ClassScreen/ClassScreenTeacher/index"
 
+import { NavigationContainer } from '@react-navigation/native';
+import LoginStackNavigator from './src/navigations/LoginStackNavigator';
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [isFirstTimeLoad, setIsFirstTimeLoad] = useState(false);
@@ -67,10 +70,13 @@ export default function App() {
   // )
 
   return (
-    <>
-      <StatusBar style="light" />
-      <HomeTeacher />
-    </>
+    // <>
+    //   <StatusBar style="light" />
+    //   <HomeTeacher />
+    // </>
+    <NavigationContainer>
+      <LoginStackNavigator />
+    </NavigationContainer>
   )
 
   /**Check isFirstTimeLoad App */
