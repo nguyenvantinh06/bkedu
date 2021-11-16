@@ -1,18 +1,17 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/Login';
 import ForgotPassword from '../screens/Login/ForgotPassword';
 import SignUpScreen from '../screens/Login/SignUp';
 import VerifyScreen from '../screens/Login/Verify';
 import ResetPasswordScreen from '../screens/Login/ResetPassword';
+import { BottomTabNavigatorTeacher } from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
 
 function LoginStackNavigator() {
   return (
-    <Stack.Navigator
-
-    >
+    <Stack.Navigator>
       <Stack.Screen name="LoginScreen" component={LoginScreen}
         options={{ headerShown: false }} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen}
@@ -65,6 +64,8 @@ function LoginStackNavigator() {
           },
         }}
       />
+      <Stack.Screen name="BottomTabNavigatorTeacher" component={BottomTabNavigatorTeacher}
+        options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
