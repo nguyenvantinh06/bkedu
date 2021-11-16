@@ -1,7 +1,9 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Alert, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
+import CustomButton from "../../../components/CustomButton"
+import AddButtonComponent from "../../../components/AddButtonComponent"
 
 const DATA = [
   {
@@ -12,9 +14,9 @@ const DATA = [
   },
   {
     id: '112314',
-    title: 'Toán học',
-    desc: 'Bài tập 1',
-    deadline: '14/11/2021'
+    title: 'Vật lý',
+    desc: 'Bài tập 2',
+    deadline: '15/11/2021'
   },
   
   
@@ -33,9 +35,10 @@ const Item = ({ title, desc, deadline }) => (
         </View>
         <View style={styles.listResult}>
             <Text style={styles.titleText}>Thang điểm: 10</Text>
-            <TouchableOpacity style={styles.buttonListSubmit} onPress={() => Alert.alert('Hiển thị danh sách bài nộp')}>
-                <Text style={styles.buttonText}>Danh sách bài nộp </Text>
-            </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => Alert.alert('Hiển thị danh sách bài nộp')}>
+                <Text style={styles.buttonText}>Danh sách bài nộp</Text>
+            </TouchableOpacity> */}
+            <CustomButton title={'Danh sách bài nộp'} />
         </View>
     </View>
 );
@@ -52,7 +55,7 @@ const ExercisesClassScreenTeacher = () => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
-      
+      <AddButtonComponent />
     </SafeAreaView>
   );
 }
@@ -111,20 +114,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    buttonListSubmit: {
-        borderColor: '#00A9B7',
-        borderWidth: 1.5,
-        height: 30,
-        justifyContent: "center",
-        alignItems: 'center',
-        borderRadius: 5,
-    },
-    buttonText:{
-        ...TEXT,
-        color: "#00A9B7",
-    }
-    
-
 });
 
 export default ExercisesClassScreenTeacher;

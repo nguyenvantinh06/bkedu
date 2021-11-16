@@ -26,8 +26,8 @@
 import React, { useState } from "react";
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import AddButtonComponent from "../../../../components/AddButtonComponent"
-import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
-import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
+// import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
+// import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 import backgroundclass from "../../../../assets/class/flatmath.png"
 
