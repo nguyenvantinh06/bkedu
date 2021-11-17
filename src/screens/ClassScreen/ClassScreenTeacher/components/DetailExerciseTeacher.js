@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         padding: 10,
         borderColor: 'grey',
+        borderRadius: 5,
         elevation: 3,
         shadowColor: '#000000',
         shadowOffset: {

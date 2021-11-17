@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import HomeTeacher from "./src/screens/HomeScreen/HomeScreenTeacher/index"
 import ClassTeacher from "./src/screens/ClassScreen/ClassScreenTeacher/index"
+import Constants from "expo-constants";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -69,7 +70,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <ClassTeacher />
+      <HomeTeacher />
     </>
   )
 
@@ -98,5 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
   },
 });

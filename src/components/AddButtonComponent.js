@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 
-const TestPress = () => {
-    console.log('Press');
-}
-const AddButtonComponent = () => {
+const AddButtonComponent = ({onPress}) => {
     
     return (
-        <TouchableOpacity style={styles.addButton} onPress={TestPress}>
+        <TouchableOpacity style={styles.addButton} onPress={onPress}>
             <Text style={styles.addIcon}>+</Text>
         </TouchableOpacity>
     )

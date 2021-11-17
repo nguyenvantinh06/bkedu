@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, Dimensions, Image, Alert } from "react-native";
 
-const TestPress = () => {
-    Alert.alert('Hiển thị trang danh sách')
-}
-const CustomButton = ({title}) => {
+const CustomButton = ({title, onPress}) => {
     
     return (
-        <TouchableOpacity style={styles.buttonListSubmit} onPress={TestPress}>
+        <TouchableOpacity style={styles.buttonListSubmit} onPress={onPress}>
             <Text style={styles.buttonText}>{title}</Text>
         </TouchableOpacity>
     )
