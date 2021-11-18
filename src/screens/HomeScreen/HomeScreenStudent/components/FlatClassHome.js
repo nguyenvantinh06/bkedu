@@ -52,7 +52,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
   </TouchableOpacity>
 );
 
-const FlatClassHome = () => {
+const FlatClassHome = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   // const renderItem = ({ item }) => {
@@ -70,7 +70,8 @@ const FlatClassHome = () => {
   // };
 
   const renderItem = ({ item }) => (
-    <ListItem bottomDivider style={styles.item}
+    <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigatorStudentClass')}>
+      <ListItem bottomDivider style={styles.item}
       // Component={TouchableScale}
       // friction={90} //
       // tension={100} // These props are passed to the parent component (here TouchableScale)
@@ -81,15 +82,16 @@ const FlatClassHome = () => {
       //   end: { x: 0.2, y: 0 },
       // }}
       // ViewComponent={LinearGradient}
-     // onPress={() => navigation.navigate()}
-    >
-      <Avatar source={{uri: item.avatar_url}} />
-      <ListItem.Content style={[styles.content]}>
-        <ListItem.Title>{item.name}</ListItem.Title>
-        <ListItem.Subtitle>{item.subtitle}</ListItem.Subtitle>
-      </ListItem.Content>
-      <ListItem.Chevron />
-    </ListItem>
+      // onPress={() => navigation.navigate()}
+      >
+        <Avatar source={{ uri: item.avatar_url }} />
+        <ListItem.Content style={[styles.content]}>
+          <ListItem.Title>{item.name}</ListItem.Title>
+          <ListItem.Subtitle>{item.subtitle}</ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
+    </TouchableOpacity>
   )
 
   return (
@@ -99,7 +101,7 @@ const FlatClassHome = () => {
         renderItem={renderItem}
         //keyExtractor={(item) => item.id}
         keyExtractor={(item, index) => index.toString()}
-        //extraData={selectedId}
+      //extraData={selectedId}
       />
     </SafeAreaView>
   );
@@ -110,12 +112,12 @@ const { width, height } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   //marginTop: StatusBar.currentHeight || 0,
+    //marginTop: StatusBar.currentHeight || 0,
     marginTop: 5,
     width,
   },
   item: {
-    flex:1,
+    flex: 1,
     padding: 5,
     paddingVertical: 0,
     marginVertical: 5,
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00A9B7'
   },
   content: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#00A9B7'
   },
   title: {

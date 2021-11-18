@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import CustomButton from "../../../components/CustomButton"
 import AddButtonComponent from "../../../components/AddButtonComponent"
 const DATA = [
-{
-    id: '123456',
-    title: 'Vật lý',
-    desc: 'Bài tập 1',
-    deadline: '14/11/2021'
-},
-{
-    id: '112314',
-    title: 'Vật lý',
-    desc: 'Bài tập 2',
-    deadline: '15/11/2021'
-},
+    {
+        id: '123456',
+        title: 'Vật lý',
+        desc: 'Bài tập 1',
+        deadline: '14/11/2021'
+    },
+    {
+        id: '112314',
+        title: 'Vật lý',
+        desc: 'Bài tập 2',
+        deadline: '15/11/2021'
+    },
 
 
 ];
 
-const Item = ({ title, desc, deadline }) => (
+const Item = ({ title, desc, deadline, navigation }) => (
     <View style={styles.container}>
         <View style={styles.desciption}>
             <View style={styles.iconTitle}>
@@ -37,14 +37,14 @@ const Item = ({ title, desc, deadline }) => (
             {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => Alert.alert('Hiển thị danh sách bài nộp')}>
                 <Text style={styles.buttonText}>Danh sách bài nộp</Text>
             </TouchableOpacity> */}
-            <CustomButton title={'Xem'} onPress={() => AssignmentSubmitSubject} />
+            <CustomButton title={'Xem'} onPress={() => navigation.navigate('AssignmentSubmitSubject')} />
         </View>
     </View>
 );
 
-const AssignmentSubjectScreen = ({navigation}) => {
+const AssignmentSubjectScreen = ({ navigation }) => {
     const renderItem = ({ item }) => (
-        <Item title={item.title} desc={item.desc} deadline={item.deadline} />
+        <Item title={item.title} desc={item.desc} deadline={item.deadline} navigation={navigation} />
     );
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     listResult: {
-        flex:1,
+        flex: 1,
         justifyContent: "space-around",
 
     },
@@ -111,18 +111,18 @@ const styles = StyleSheet.create({
         ...TEXT,
         marginVertical: 5,
     },
-    descText:{
+    descText: {
         fontSize: 18,
         fontWeight: 'bold',
         //marginVertical: 5,
     },
-    deadlineText:{
+    deadlineText: {
         ...TEXT,
         marginVertical: 5,
 
     },
     iconTitle: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -147,19 +147,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '90%',
         height: 180,
-        borderWidth:1,
+        borderWidth: 1,
         borderColor: '#B5B5B5',
         padding: 10,
     },
     contentAddExercise: {
-        flex:1,
+        flex: 1,
         borderColor: '#B5B5B5',
         borderRadius: 5,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
     DescContainer: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
         borderWidth: 1,
@@ -169,10 +169,10 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     inputDesc: {
-        flex:1,
+        flex: 1,
     },
-    selectedDate:{
-        flex:1,
+    selectedDate: {
+        flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
         borderWidth: 1,
@@ -183,41 +183,41 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginVertical: 5,
     },
-    inputDate:{
-        flex:1
+    inputDate: {
+        flex: 1
     },
-    datepickerapp:{
-        flex:1,
+    datepickerapp: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     contentButton: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         alignItems: "center",
         justifyContent: 'space-around',
         marginVertical: 5,
     },
-    buttonSubmit:{
-        flex:1,
+    buttonSubmit: {
+        flex: 1,
         backgroundColor: '#00A9B7',
         height: 40,
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
         marginRight: 5,
 
     },
-    buttonCancel:{
-        flex:1,
+    buttonCancel: {
+        flex: 1,
         backgroundColor: '#B5B5B5',
         height: 40,
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
         marginLeft: 5,
     },
-    buttonSubmitText:{
+    buttonSubmitText: {
         ...TEXTBUTTON,
         elevation: 2,
     },

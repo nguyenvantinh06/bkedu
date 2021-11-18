@@ -3,25 +3,21 @@ import { View, Button, Text, StyleSheet } from "react-native";
 
 import FlatClassHome from "./components/FlatClassHome"
 
-const HomeScreenStudent = ({navigation}) => {
-return (
+const HomeScreenStudent = ({ navigation }) => {
+  return (
     <View style={styles.center}>
-       <Text>This is the home screen</Text>
-      <Button title="Go to Class Screen"
-        onPress={() => navigation.navigate("BottomTabNavigatorStudentClass")}
-      />
-      <FlatClassHome />
+      <FlatClassHome navigation={navigation} />
     </View>
-    );
+  );
 };
 
 const styles = StyleSheet.create({
-    center: {
+  center: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    },
+  },
 });
 
 export default HomeScreenStudent;

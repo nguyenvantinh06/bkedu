@@ -14,8 +14,10 @@ import SubjectScreenStudent from "../screens/ClassScreen/ClassScreenStudent/Subj
 import FileSubjectScreen from "../screens/ClassScreen/ClassScreenStudent/FileSubjectScreen";
 import AssignmentSubjectScreen from "../screens/ClassScreen/ClassScreenStudent/AssignmentSubjectScreen";
 
-import {MainStackNavigatorStudentScreen,ProfileStackNavigatorStudentScreen,ClassmateStackNavigatorStudentScreen,
-        CalendarStackNavigatorStudentScreen,FileSubjectStackNavigatorStudentScreen,SubjectStackNavigatorStudentScreen ,AssignmentSubjectStackNavigatorStudentScreen} from  "./StackNavigatorStudent";
+import {
+  MainStackNavigatorStudentScreen, ProfileStackNavigatorStudentScreen, ClassmateStackNavigatorStudentScreen,
+  CalendarStackNavigatorStudentScreen, FileSubjectStackNavigatorStudentScreen, SubjectStackNavigatorStudentScreen, AssignmentSubjectStackNavigatorStudentScreen
+} from "./StackNavigatorStudent";
 
 const screenOptionStyle = {
   headerStyle: {
@@ -24,7 +26,7 @@ const screenOptionStyle = {
   headerTintColor: "white",
   headerBackTitle: "Back",
   headerTitleAlign: "center",
-  headerRight: () => <Ionicons style={{right:10}} name="notifications" size={24} color="white" />
+  headerRight: () => <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
 };
 
 const TabBottomStudent = createBottomTabNavigator();
@@ -32,33 +34,33 @@ const TabBottomStudent = createBottomTabNavigator();
 const BottomTabNavigatorStudent = () => {
   return (
     <TabBottomStudent.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-        if (route.name === 'Home') {
-          iconName = 'home'
-          return <Entypo name={iconName} size={size} color={color} />;
-        } else if (route.name === 'Profile') {
-          iconName = 'person'
-          return <Ionicons name={iconName} size={size} color={color} />;
-        }
-        else if (route.name === 'Classmate') {
-                iconName="calendar-outline"
-                  return <Ionicons name={iconName} size={size} color={color} />;
-                }
-        else if (route.name === 'Calendar') {
-                  iconName ="list-outline"
-                  return <Ionicons name={iconName} size={size} color={color} />;
-                }
-      },
-      tabBarActiveTintColor: '#00A9B7',
-      tabBarInactiveTintColor: '#B5B5B5',
-    })}>
-      <TabBottomStudent.Screen name="Home" component={MainStackNavigatorStudentScreen} options={{title:'Trang chủ', headerShown: false}} />
-      <TabBottomStudent.Screen name="Calendar" component={CalendarStackNavigatorStudentScreen} options={{title:'Lịch học', headerShown: false}}/>
-      <TabBottomStudent.Screen name="Classmate" component={ClassmateStackNavigatorStudentScreen} options={{title:'Danh sách lớp', headerShown: false}}/>
-      <TabBottomStudent.Screen name="Profile" component={ProfileStackNavigatorStudentScreen} options={{title:'Trang cá nhân', headerShown: false}}/>
+          if (route.name === 'HomeStudent') {
+            iconName = 'home'
+            return <Entypo name={iconName} size={size} color={color} />;
+          } else if (route.name === 'ProfileStudent') {
+            iconName = 'person'
+            return <Ionicons name={iconName} size={size} color={color} />;
+          }
+          else if (route.name === 'CalendarStudent') {
+            iconName = "calendar-outline"
+            return <Ionicons name={iconName} size={size} color={color} />;
+          }
+          else if (route.name === 'ClassmateStudent') {
+            iconName = "list-outline"
+            return <Ionicons name={iconName} size={size} color={color} />;
+          }
+        },
+        tabBarActiveTintColor: '#00A9B7',
+        tabBarInactiveTintColor: '#B5B5B5',
+      })}>
+      <TabBottomStudent.Screen name="HomeStudent" component={MainStackNavigatorStudentScreen} options={{ title: 'Trang chủ', headerShown: false }} />
+      <TabBottomStudent.Screen name="CalendarStudent" component={CalendarStackNavigatorStudentScreen} options={{ title: 'Lịch học', headerShown: false }} />
+      <TabBottomStudent.Screen name="ClassmateStudent" component={ClassmateStackNavigatorStudentScreen} options={{ title: 'Danh sách lớp', headerShown: false }} />
+      <TabBottomStudent.Screen name="ProfileStudent" component={ProfileStackNavigatorStudentScreen} options={{ title: 'Trang cá nhân', headerShown: false }} />
     </TabBottomStudent.Navigator>
   );
 };
@@ -68,39 +70,40 @@ const TabBottomStudentClass = createBottomTabNavigator();
 const BottomTabNavigatorStudentClass = () => {
   return (
     <TabBottomStudentClass.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-        if (route.name === 'DetailClass') {
-          iconName = 'assignment'
-          return <MaterialIcons name={iconName} size={size} color={color} />;
-        } else if (route.name === 'StudentsClass') {
-          iconName = 'group'
-          return <MaterialIcons name={iconName} size={size} color={color} />;
-        }
-        else if (route.name === 'ExercisesClass') {
-          iconName = 'import-contacts'
-          return <MaterialIcons name={iconName} size={size} color={color} />;
-        }
-      },
-      tabBarActiveTintColor: '#00A9B7',
-      tabBarInactiveTintColor: '#B5B5B5',
-    })}>
-      <TabBottomStudentClass.Screen name="Subject" component={SubjectStackNavigatorStudentScreen} options={{title:'Chung', headerStyle: {
+          if (route.name === 'AssignmentSubjectScreen') {
+            iconName = 'assignment'
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Subject') {
+            iconName = 'group'
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          }
+          else if (route.name === 'FileSubjectScreen') {
+            iconName = 'import-contacts'
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          }
+        },
+        tabBarActiveTintColor: '#00A9B7',
+        tabBarInactiveTintColor: '#B5B5B5',
+      })}>
+      <TabBottomStudentClass.Screen name="Subject" component={SubjectStackNavigatorStudentScreen} options={{
+        title: 'Chung', headerStyle: {
           backgroundColor: '#28A490',
-          },
-          headerTintColor: "white",
-          headerBackTitle: "Back",
-          headerTitleAlign: "center",
-           headerShown: false,
-          headerRight: () => <Ionicons style={{right:10}} name="notifications" size={24} color="white" />
-        }}
+        },
+        headerTintColor: "white",
+        headerBackTitle: "Back",
+        headerTitleAlign: "center",
+        headerShown: false,
+        headerRight: () => <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+      }}
       />
-      <TabBottomStudentClass.Screen name="AssignmentSubjectScreen" component={AssignmentSubjectStackNavigatorStudentScreen} options={{title:'Bài tập', headerShown: false}}/>
-      <TabBottomStudentClass.Screen name="FileSubjectScreen" component={FileSubjectStackNavigatorStudentScreen} options={{title:'Tệp', headerShown: false}} />
+      <TabBottomStudentClass.Screen name="AssignmentSubjectScreen" component={AssignmentSubjectStackNavigatorStudentScreen} options={{ title: 'Bài tập', headerShown: false }} />
+      <TabBottomStudentClass.Screen name="FileSubjectScreen" component={FileSubjectStackNavigatorStudentScreen} options={{ title: 'Tệp', headerShown: false }} />
     </TabBottomStudentClass.Navigator>
   );
 };
 
-export {BottomTabNavigatorStudent,BottomTabNavigatorStudentClass};
+export { BottomTabNavigatorStudent, BottomTabNavigatorStudentClass };
