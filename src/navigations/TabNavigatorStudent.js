@@ -18,6 +18,7 @@ import {
   MainStackNavigatorStudentScreen, ProfileStackNavigatorStudentScreen, ClassmateStackNavigatorStudentScreen,
   CalendarStackNavigatorStudentScreen, FileSubjectStackNavigatorStudentScreen, SubjectStackNavigatorStudentScreen, AssignmentSubjectStackNavigatorStudentScreen
 } from "./StackNavigatorStudent";
+import { TouchableOpacity } from 'react-native';
 
 const screenOptionStyle = {
   headerStyle: {
@@ -26,7 +27,10 @@ const screenOptionStyle = {
   headerTintColor: "white",
   headerBackTitle: "Back",
   headerTitleAlign: "center",
-  headerRight: () => <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+  headerRight: ({ navigation }) =>
+    <TouchableOpacity onPress={() => { navigation.navigate('NotificationScreen') }}>
+      <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+    </TouchableOpacity>
 };
 
 const TabBottomStudent = createBottomTabNavigator();

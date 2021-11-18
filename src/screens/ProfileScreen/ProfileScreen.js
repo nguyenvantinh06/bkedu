@@ -4,7 +4,6 @@ import { Avatar } from "react-native-elements"
 
 const ProfileScreen = ({ navigation }) => {
     return (
-
         <View style={styles.container}>
             <View style={styles.avatarName}>
                 <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
@@ -42,14 +41,24 @@ const ProfileScreen = ({ navigation }) => {
             </View>
         </View>
     );
-};
 
-const TEXT = {
-    color: '#000',
-    fontFamily: 'Roboto',
-    fontSize: 18
+    return (
+        <SafeAreaView style={styles.contain}>
+            <FlatList
+                data={DATA}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+            />
+
+        </SafeAreaView>
+    );
 }
 
+const TEXT = {
+    fontSize: 14,
+    color: '#000',
+    fontFamily: 'Roboto',
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -107,8 +116,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold'
     },
-    text: {
+    timeSubmitText: {
         ...TEXT,
+        marginVertical: 5,
+
     },
     image: {
         width: 70,

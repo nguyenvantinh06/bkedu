@@ -12,6 +12,7 @@ import FileSubjectScreen from "../screens/ClassScreen/ClassScreenStudent/FileSub
 import AssignmentSubjectScreen from "../screens/ClassScreen/ClassScreenStudent/AssignmentSubjectScreen";
 import { BottomTabNavigatorStudentClass } from "./TabNavigatorStudent";
 import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
 
 const screenOptionStyle = {
   headerStyle: {
@@ -20,37 +21,84 @@ const screenOptionStyle = {
   headerTintColor: "white",
   headerBackTitle: "Back",
   headerTitleAlign: "center",
-  headerRight: () => <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" onPress={() => Alert.alert('Notification icon pressed')} />
+  headerRight: () =>
+    <TouchableOpacity onPress={() => { navigation.navigate('NotificationScreen') }}>
+      <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+    </TouchableOpacity>
 };
 
 const MainStackNavigatorStudent = createStackNavigator();
-const MainStackNavigatorStudentScreen = () => {
+const MainStackNavigatorStudentScreen = ({ navigation }) => {
   return (
-    <MainStackNavigatorStudent.Navigator screenOptions={screenOptionStyle}>
+    <MainStackNavigatorStudent.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#28A490",
+      },
+      headerTintColor: "white",
+      headerBackTitle: "Back",
+      headerTitleAlign: "center",
+      headerRight: () =>
+        <TouchableOpacity onPress={() => { navigation.navigate('NotificationScreen') }}>
+          <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+        </TouchableOpacity>
+    }}>
       <MainStackNavigatorStudent.Screen name="Home" component={HomeScreenStudent} options={{ title: 'Trang chủ' }} />
     </MainStackNavigatorStudent.Navigator>
   );
 }
 const ProfileStackNavigatorStudent = createStackNavigator();
-const ProfileStackNavigatorStudentScreen = () => {
+const ProfileStackNavigatorStudentScreen = ({ navigation }) => {
   return (
-    <ProfileStackNavigatorStudent.Navigator screenOptions={screenOptionStyle}>
+    <ProfileStackNavigatorStudent.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#28A490",
+      },
+      headerTintColor: "white",
+      headerBackTitle: "Back",
+      headerTitleAlign: "center",
+      headerRight: () =>
+        <TouchableOpacity onPress={() => { navigation.navigate('NotificationScreen') }}>
+          <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+        </TouchableOpacity>
+    }}>
       <ProfileStackNavigatorStudent.Screen name="Profile" component={ProfileScreen} options={{ title: 'Trang cá nhân' }} />
     </ProfileStackNavigatorStudent.Navigator>
   );
 }
 const ClassmateStackNavigatorStudent = createStackNavigator();
-const ClassmateStackNavigatorStudentScreen = () => {
+const ClassmateStackNavigatorStudentScreen = ({ navigation }) => {
   return (
-    <ClassmateStackNavigatorStudent.Navigator screenOptions={screenOptionStyle}>
+    <ClassmateStackNavigatorStudent.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#28A490",
+      },
+      headerTintColor: "white",
+      headerBackTitle: "Back",
+      headerTitleAlign: "center",
+      headerRight: () =>
+        <TouchableOpacity onPress={() => { navigation.navigate('NotificationScreen') }}>
+          <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+        </TouchableOpacity>
+    }}>
       <ClassmateStackNavigatorStudent.Screen name="Classmate" component={ClassmateScreen} options={{ title: 'Danh sách lớp ' }} />
     </ClassmateStackNavigatorStudent.Navigator>
   );
 }
 const CalendarStackNavigatorStudent = createStackNavigator();
-const CalendarStackNavigatorStudentScreen = () => {
+const CalendarStackNavigatorStudentScreen = ({ navigation }) => {
   return (
-    <CalendarStackNavigatorStudent.Navigator screenOptions={screenOptionStyle}>
+    <CalendarStackNavigatorStudent.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#28A490",
+      },
+      headerTintColor: "white",
+      headerBackTitle: "Back",
+      headerTitleAlign: "center",
+      headerRight: () =>
+        <TouchableOpacity onPress={() => { navigation.navigate('NotificationScreen') }}>
+          <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
+        </TouchableOpacity>
+    }}>
       <CalendarStackNavigatorStudent.Screen name="Calendar" component={CalendarScreen} options={{ title: 'Thời khóa biểu' }} />
     </CalendarStackNavigatorStudent.Navigator>
   );

@@ -73,14 +73,14 @@ const DetailSubmitTeacher = ({ route, item }) => {
           <View style={styles.modalView}>
             <View style={styles.contentAddClass}>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Tên môn học' />
+                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Điểm' />
               </View>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Lớp học' />
+                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Nhận xét' />
               </View>
               <View style={styles.contentButton}>
-                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã tạo lớp thành công')}>
-                  <Text style={styles.buttonSubmitText}>Tạo lớp</Text>
+                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã chấm bài')}>
+                  <Text style={styles.buttonSubmitText}>Xác nhận</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
                   <Text style={styles.buttonCancelText}>Hủy</Text>
