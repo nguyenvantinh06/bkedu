@@ -3,8 +3,34 @@ import { View, StyleSheet, FlatList, Text, Dimensions } from 'react-native';
 import Indicators from './Indicators';
 import Slide from './Slide';
 
-const Welcome = ({ slides = [], onDone }) => {
-  if (!slides || !slides.length) return null;
+const Welcome = ({ navigation }) => {
+
+  const slides = [
+    {
+      key: 1,
+      image: require('../../assets/intro/intro1.png'),
+      desc: 'Chào mừng bạn đến với BKEDU',
+      backgroundColor: '#28A490',
+    },
+    {
+      key: 2,
+      image: require('../../assets/intro/intro2.png'),
+      desc: 'Học tập toàn diện',
+      backgroundColor: '#28A490',
+    },
+    {
+      key: 3,
+      image: require('../../assets/intro/intro3.png'),
+      desc: 'Đầy đủ tính năng',
+      backgroundColor: '#28A490',
+    },
+    {
+      key: 4,
+      image: require('../../assets/intro/intro4.png'),
+      desc: 'Hiệu quả tuyệt đối',
+      backgroundColor: '#28A490',
+    }
+  ];
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const flatListRef = useRef();
 
@@ -14,12 +40,14 @@ const Welcome = ({ slides = [], onDone }) => {
   });
 
   const handleSkip = () => {
-    flatListRef.current.scrollToEnd({ animated: true });
+    //flatListRef.current.scrollToEnd({ animated: true });
+    navigation.navigate('LoginStackNavigator')
   };
 
   const handleNext = () => {
     if (currentSlideIndex >= slides.length - 1) return;
     flatListRef.current.scrollToIndex({ index: currentSlideIndex + 1 });
+    setCurrentSlideIndex(currentSlideIndex + 1)
   };
 
   return (
@@ -50,7 +78,7 @@ const Welcome = ({ slides = [], onDone }) => {
           Next
         </Text>
       ) : (
-        <Text onPress={onDone} style={[styles.button, styles.rightButton]}>
+        <Text onPress={() => { navigation.navigate('LoginStackNavigator') }} style={[styles.button, styles.rightButton]}>
           Done
         </Text>
       )}
