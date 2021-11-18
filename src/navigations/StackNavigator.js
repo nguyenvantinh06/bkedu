@@ -9,11 +9,6 @@ import { Ionicons } from '@expo/vector-icons';
 import StudentsClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/StudentsClassTeacher";
 import ExercisesClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ExerciseClassTeacher";
 
-// import HomeTeacher from "./screens/HomeScreens/HomeScreensteacher/index";
-// import ClassTeacher from "./screens/ClassScreens/ClassScreensTeacher/index";
-
-import { BottomTabNavigatorTeacher, BottomTabNavigatorTeacherClass } from './TabNavigator';
-
 const screenOptionStyle = {
   headerStyle: {
     backgroundColor: "#28A490",
