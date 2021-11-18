@@ -5,12 +5,14 @@ import HomeScreenTeacher from "../screens/HomeScreen/HomeScreenTeacher/HomeScree
 import ClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ClassScreenTeacher";
 import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
 import { Ionicons } from '@expo/vector-icons';
-import ClassTeacher from "../screens/ClassScreen/ClassScreenTeacher/index"
+
 import StudentsClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/StudentsClassTeacher";
 import ExercisesClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ExerciseClassTeacher";
-import { BottomTabNavigatorTeacherClass } from './TabNavigator';
 
+// import HomeTeacher from "./screens/HomeScreens/HomeScreensteacher/index";
+// import ClassTeacher from "./screens/ClassScreens/ClassScreensTeacher/index";
 
+import { BottomTabNavigatorTeacher, BottomTabNavigatorTeacherClass } from './TabNavigator';
 
 const screenOptionStyle = {
   headerStyle: {
@@ -32,7 +34,15 @@ const MainStackNavigatorTeacherScreen = () => {
     </MainStackNavigatorTeacher.Navigator>
   );
 }
+// const HomeStackNavigatorTeacher = createStackNavigator();
 
+// const HomeStackNavigatorTeacherScreen = () => {
+//   return (
+//     <HomeStackNavigatorTeacher.Navigator screenOptions={screenOptionStyle}>
+//       <HomeStackNavigatorTeacherScreen.Screen name="Home" component={HomeScreenTeacher} options={{title:'Trang cá nhân'}}/>
+//     </HomeStackNavigatorTeacher.Navigator>
+//   );
+// }
 const ProfileStackNavigatorTeacher = createStackNavigator();
 
 const ProfileStackNavigatorTeacherScreen = () => {

@@ -23,30 +23,47 @@ const DATA = [
   
 ];
 
-const Item = ({ title, desc, deadline }) => (
-    <View style={styles.container}>
+// const Item = ({ title, desc, deadline }) => (
+//     <View style={styles.container}>
+//         <View style={styles.desciption}>
+//             <View style={styles.iconTitle}>
+//                 <MaterialIcons name="assignment" size={24} color="grey" />
+//                 <Text style={styles.titleText}> {title}</Text>
+//             </View>
+//             <Text style={styles.descText}>{desc}</Text>
+//             <Text style={styles.deadlineText}>Hạn nộp: {deadline}</Text>
+            
+//         </View>
+//         <View style={styles.listResult}>
+//             <Text style={styles.titleText}>Thang điểm: 10</Text>
+//             {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => Alert.alert('Hiển thị danh sách bài nộp')}>
+//                 <Text style={styles.buttonText}>Danh sách bài nộp</Text>
+//             </TouchableOpacity> */}
+//             <CustomButton title={'Danh sách bài nộp'} onPress={() => Alert.alert('Hiển thị danh sách')} />
+//         </View>
+//     </View>
+// );
+
+const ExercisesClassScreenTeacher = ({navigation}) => {
+    const renderItem = ({ item }) => (
+        <View style={styles.container}>
         <View style={styles.desciption}>
             <View style={styles.iconTitle}>
                 <MaterialIcons name="assignment" size={24} color="grey" />
-                <Text style={styles.titleText}> {title}</Text>
+                <Text style={styles.titleText}> {item.title}</Text>
             </View>
-            <Text style={styles.descText}>{desc}</Text>
-            <Text style={styles.deadlineText}>Hạn nộp: {deadline}</Text>
+            <Text style={styles.descText}>{item.desc}</Text>
+            <Text style={styles.deadlineText}>Hạn nộp: {item.deadline}</Text>
             
         </View>
         <View style={styles.listResult}>
             <Text style={styles.titleText}>Thang điểm: 10</Text>
-            {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => Alert.alert('Hiển thị danh sách bài nộp')}>
+            {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => navigation.push("ExercisesClassDetail", {name:"{item.desc}"})} >
                 <Text style={styles.buttonText}>Danh sách bài nộp</Text>
             </TouchableOpacity> */}
-            <CustomButton title={'Danh sách bài nộp'} onPress={() => Alert.alert('Hiển thị danh sách')} />
+            <CustomButton title={'Danh sách bài nộp'} onPress={() => navigation.push("ExercisesClassDetail", {name:"{item.desc}"})} />
         </View>
     </View>
-);
-
-const ExercisesClassScreenTeacher = () => {
-    const renderItem = ({ item }) => (
-        <Item title={item.title} desc={item.desc} deadline={item.deadline} />
     );
 
     const [modalVisible, setModalVisible] = useState(false);

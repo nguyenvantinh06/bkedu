@@ -28,9 +28,6 @@ const FlatClassHome = ({ navigation }) => {
           <Text style={styles.classTeachText}>Lớp: {item.classTeach}</Text>
           <Text style={styles.teacherText}>{item.teacher}</Text>
         </View>
-        {/* <View style={styles.iconClass}>
-          <Image source={{uri : 'https://www.besonline.in/Physics.png'}} style={styles.image} />
-        </View> */}
         <Image source={{ uri: item.icon }} style={styles.image} />
       </View>
     </TouchableOpacity>
