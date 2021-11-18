@@ -1,11 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import StudentsClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/StudentsClassTeacher";
 import ClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ClassScreenTeacher";
 import ExercisesClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ExerciseClassTeacher";
+import DetailSubmitTeacher from "../screens/ClassScreen/ClassScreenTeacher/components/DetailSubmitTeacher"
 
 import { MainStackNavigatorTeacherScreen, ProfileStackNavigatorTeacherScreen } from "./StackNavigator";
 
@@ -46,6 +48,19 @@ const BottomTabNavigatorTeacher = () => {
   );
 };
 
+const Stack = createNativeStackNavigator();
+
+function ExerciseStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="ExercisesClass" component={ExercisesClassScreenTeacher}
+        options={{ headerShown: false }} />
+      <Stack.Screen name="DetailSubmitTeacher" component={DetailSubmitTeacher}
+        options={{ headerShown: false }} />
+    </Stack.Navigator>
+  );
+}
+
 const TabBottomTeacherClass = createBottomTabNavigator();
 
 const BottomTabNavigatorTeacherClass = () => {
@@ -62,7 +77,7 @@ const BottomTabNavigatorTeacherClass = () => {
             iconName = 'group'
             return <MaterialIcons name={iconName} size={size} color={color} />;
           }
-          else if (route.name === 'ExercisesClass') {
+          else if (route.name === 'ExerciseStackNavigator') {
             iconName = 'import-contacts'
             return <MaterialIcons name={iconName} size={size} color={color} />;
           }
@@ -96,8 +111,8 @@ const BottomTabNavigatorTeacherClass = () => {
           },
         }} />
       <TabBottomTeacherClass.Screen
-        name="ExercisesClass"
-        component={ExercisesClassScreenTeacher}
+        name="ExerciseStackNavigator"
+        component={ExerciseStackNavigator}
         options={{
           title: 'Bài tập',
           headerStyle: {
