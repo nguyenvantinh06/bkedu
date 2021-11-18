@@ -50,18 +50,18 @@ const DetailSubmitTeacher = ({route, item}) => {
         <Text style={{textAlign:'center', fontSize: 14, marginTop:10,}}>Bài làm</Text>
         {/* <Text style={{fontSize: 14, marginTop:10}}>Đây là bài làm của Nguyễn Văn Aaaaaaaaaaaaaaaaaaaaaaaaa</Text> */}
         <View>
-          <Text style={{textAlign:'center', fontSize: 14, marginTop:10, marginBottom: 250}}>Đây là bài làm của Nguyễn Văn A</Text>
+          <Text style={{textAlign:'center', fontSize: 14, marginTop:10, marginBottom: 300}}>Đây là bài làm của Nguyễn Văn A</Text>
         </View>
         {/* <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã thêm học sinh')}>
             <Text style={styles.buttonSubmitText}>Phản hồi</Text>
           </TouchableOpacity> */}
         <View>
-          <TouchableOpacity style={styles.buttonSubmit} onPress={() => setModalVisible(true)} >
-            <Text style={styles.buttonSubmitText}>Phản hồi</Text>
+          <TouchableOpacity style={styles.buttonFeedback} onPress={() => setModalVisible(true)} >
+            <Text style={styles.buttonFeedbackText}>Phản hồi</Text>
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Modal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -73,14 +73,14 @@ const DetailSubmitTeacher = ({route, item}) => {
           <View style={styles.modalView}>
             <View style={styles.contentAddClass}>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Tên môn học' />
+                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Điểm' />
               </View>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Lớp học' />
+                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Nhận xét' />
               </View>
               <View style={styles.contentButton}>
-                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã tạo lớp thành công')}>
-                  <Text style={styles.buttonSubmitText}>Tạo lớp</Text>
+                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã chấm bài')}>
+                  <Text style={styles.buttonSubmitText}>Xác nhận</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
                   <Text style={styles.buttonCancelText}>Hủy</Text>
@@ -89,7 +89,7 @@ const DetailSubmitTeacher = ({route, item}) => {
             </View>
           </View>
         </View>
-      </Modal> */}
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     contentSubmit:{
       flex:15,
     },
-    buttonSubmit:{
+    buttonFeedback:{
       //flex:1,
       backgroundColor: '#00A9B7',
       height: 40,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
       marginRight: 5,
       
   },
-  buttonSubmitText:{
+  buttonFeedbackText:{
     ...TEXTBUTTON,
     elevation: 2,
 },
