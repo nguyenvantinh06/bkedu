@@ -4,6 +4,8 @@ import LoginStackNavigator from './LoginStackNavigator';
 import { BottomTabNavigatorTeacher } from "./TabNavigator";
 import Welcome from '../screens/WelcomeScreen/Welcome';
 import { BottomTabNavigatorTeacherClass } from './TabNavigator';
+import { BottomTabNavigatorStudent } from './TabNavigatorStudent';
+import { BottomTabNavigatorStudentClass } from './TabNavigatorStudent'
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +19,10 @@ function AppNavigator() {
       <Stack.Screen name="BottomTabNavigatorTeacher" component={BottomTabNavigatorTeacher}
         options={{ headerShown: false }} />
       <Stack.Screen name="ClassScreen" component={BottomTabNavigatorTeacherClass}
+        options={{ headerShown: false }} />
+      <Stack.Screen name="BottomTabNavigatorStudent" component={BottomTabNavigatorStudent}
+        options={{ headerShown: false }} />
+      <Stack.Screen name="BottomTabNavigatorStudentClass" component={BottomTabNavigatorStudentClass}
         options={{ headerShown: false }} />
     </Stack.Navigator>
   );

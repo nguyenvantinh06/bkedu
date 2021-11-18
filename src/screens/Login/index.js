@@ -33,6 +33,7 @@ export default class LoginScreen extends Component {
           <MyButton
             title={'Đăng nhập với Google'}
             backgroundColor={'#FE6666'}
+            onPress={() => { this.props.navigation.navigate('BottomTabNavigatorStudent') }}
           />
         </View>
         <View style={styles.bottomText}>

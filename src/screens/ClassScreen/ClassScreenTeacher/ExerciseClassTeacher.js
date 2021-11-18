@@ -32,7 +32,6 @@ const DATA = [
 //             </View>
 //             <Text style={styles.descText}>{desc}</Text>
 //             <Text style={styles.deadlineText}>Hạn nộp: {deadline}</Text>
-
 //         </View>
 //         <View style={styles.listResult}>
 //             <Text style={styles.titleText}>Thang điểm: 10</Text>
@@ -77,7 +76,6 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                 keyExtractor={item => item.id}
             />
             <AddButtonComponent onPress={() => setModalVisible(true)} />
-
             {/* <AddButtonComponent onPress={() => setModalVisible(true)} /> */}
             <Modal
                 animationType="slide"
@@ -109,7 +107,6 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                     </View>
                 </View>
             </Modal>
-
         </SafeAreaView>
     );
 }

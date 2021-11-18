@@ -6,7 +6,6 @@ import SignUpScreen from '../screens/Login/SignUp';
 import VerifyScreen from '../screens/Login/Verify';
 import ResetPasswordScreen from '../screens/Login/ResetPassword';
 import { BottomTabNavigatorTeacher } from "./TabNavigator";
-
 const Stack = createNativeStackNavigator();
 
 function LoginStackNavigator() {
