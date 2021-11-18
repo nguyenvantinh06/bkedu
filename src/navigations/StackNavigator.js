@@ -5,11 +5,17 @@ import HomeScreenTeacher from "../screens/HomeScreen/HomeScreenTeacher/HomeScree
 import ClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ClassScreenTeacher";
 import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
 import { Ionicons } from '@expo/vector-icons';
-import ClassTeacher from "../screens/ClassScreen/ClassScreenTeacher/index"
+
 import StudentsClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/StudentsClassTeacher";
 import ExercisesClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ExerciseClassTeacher"; 
+import DetailExerciseTeacher from "../screens/ClassScreen/ClassScreenTeacher/components/DetailExerciseTeacher"
+import DetailSubmitTeacher from "../screens/ClassScreen/ClassScreenTeacher/components/DetailSubmitTeacher"
 
 
+// import HomeTeacher from "./screens/HomeScreens/HomeScreensteacher/index";
+// import ClassTeacher from "./screens/ClassScreens/ClassScreensTeacher/index";
+
+import {BottomTabNavigatorTeacher, BottomTabNavigatorTeacherClass} from './TabNavigator';
 
 const screenOptionStyle = {
   headerStyle: {
@@ -28,10 +34,24 @@ const MainStackNavigatorTeacherScreen = () => {
     <MainStackNavigatorTeacher.Navigator screenOptions={screenOptionStyle}>
       <MainStackNavigatorTeacher.Screen name="Home" component={HomeScreenTeacher} options={{title: 'Trang chủ'}} />
       <MainStackNavigatorTeacher.Screen name="DetailClass" component={ClassScreenTeacher} options={{title: 'Chi tiết'}} />
+      {/* <MainStackNavigatorTeacher.Screen name="DetailClass">
+        {() => (
+              <BottomTabNavigatorTeacherClass />
+        )}
+      </MainStackNavigatorTeacher.Screen> */}
+
     </MainStackNavigatorTeacher.Navigator>
   );
 }
+// const HomeStackNavigatorTeacher = createStackNavigator();
 
+// const HomeStackNavigatorTeacherScreen = () => {
+//   return (
+//     <HomeStackNavigatorTeacher.Navigator screenOptions={screenOptionStyle}>
+//       <HomeStackNavigatorTeacherScreen.Screen name="Home" component={HomeScreenTeacher} options={{title:'Trang cá nhân'}}/>
+//     </HomeStackNavigatorTeacher.Navigator>
+//   );
+// }
 const ProfileStackNavigatorTeacher = createStackNavigator();
 
 const ProfileStackNavigatorTeacherScreen = () => {
@@ -58,6 +78,8 @@ const ExercisesStackNavigatorTeacherScreen = () => {
   return (
     <ExercisesStackNavigatorTeacher.Navigator screenOptions={screenOptionStyle}>
       <ExercisesStackNavigatorTeacher.Screen name="ExercisesClass" component={ExercisesClassScreenTeacher} options={{title:'Bài tập'}}/>
+      <ExercisesStackNavigatorTeacher.Screen name="ExercisesClassDetail" component={DetailExerciseTeacher} options={({route}) => ({title: route.params.name})} />
+      <ExercisesStackNavigatorTeacher.Screen name="ExercisesClassDetailSubmit" component={DetailSubmitTeacher} options={{title:'Bài tập'}} />
     </ExercisesStackNavigatorTeacher.Navigator>
   );
 }

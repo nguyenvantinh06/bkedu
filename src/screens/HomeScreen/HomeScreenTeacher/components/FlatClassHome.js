@@ -19,18 +19,16 @@ const DATA = [
   },
 ];
 
-const FlatClassHome = () => {
+const FlatClassHome = ({navigation}) => {
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => Alert.alert('Xem thông tin lớp học')}>
+    // <TouchableOpacity onPress={() => navigation.navigate('DetailClass')} >
+    <TouchableOpacity onPress={() => Alert.alert('DetailClass')} >
       <View style={styles.container}>
         <View style={styles.desciptionContent}>
           <Text style={styles.subjectText}>{item.subjectClass}</Text>
           <Text style={styles.classTeachText}>Lớp: {item.classTeach}</Text>
           <Text style={styles.teacherText}>{item.teacher}</Text>
         </View>
-        {/* <View style={styles.iconClass}>
-          <Image source={{uri : 'https://www.besonline.in/Physics.png'}} style={styles.image} />
-        </View> */}
         <Image source={{uri : item.icon}} style={styles.image} />
       </View>
     </TouchableOpacity>

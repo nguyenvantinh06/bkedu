@@ -18,24 +18,32 @@ const DATA = [
   
   
 ];
+// const Item = ({ fullName, mark, timeSubmit }) => (
+//     <View style={styles.container}>
+//         <View style={styles.desciption}>
+//             <Text style={styles.nameText}>{fullName}</Text>
+//             <Text style={styles.markText}>Điểm: {mark}</Text>
+//             <Text style={styles.timeSubmitText}>Ngày nộp: {timeSubmit}</Text>
+            
+//         </View>
+//         <View style={styles.listResult}>
+//             <CustomButton title={'Chi tiết'} />
+//         </View>
+//     </View>
+// );
 
-const Item = ({ fullName, mark, timeSubmit }) => (
+const DetailExerciseTeacher = ({navigation}) => {
+  const renderItem = ({ item }) => (
     <View style={styles.container}>
         <View style={styles.desciption}>
-            <Text style={styles.nameText}>{fullName}</Text>
-            <Text style={styles.markText}>Điểm: {mark}</Text>
-            <Text style={styles.timeSubmitText}>Ngày nộp: {timeSubmit}</Text>
-            
+            <Text style={styles.nameText}>{item.fullName}</Text>
+            <Text style={styles.markText}>Điểm: {item.mark}</Text>
+            <Text style={styles.timeSubmitText}>Ngày nộp: {item.timeSubmit}</Text>
         </View>
         <View style={styles.listResult}>
-            <CustomButton title={'Chi tiết'} />
+            <CustomButton title={'Chi tiết'} onPress={() =>navigation.navigate('ExercisesClassDetailSubmit')} />
         </View>
     </View>
-);
-
-const DetailExerciseTeacher = () => {
-  const renderItem = ({ item }) => (
-    <Item fullName={item.fullName} mark={item.mark} timeSubmit={item.timeSubmit} />
 );
 
   return (
