@@ -55,7 +55,7 @@ const AssignmentSubjectScreen = ({ navigation }) => {
             <FlatList
                 data={DATA}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => index.toString()}
             />
 
             {/* <AddButtonComponent onPress={() => setModalVisible(true)} /> */}

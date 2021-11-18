@@ -1,6 +1,6 @@
 
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Image, Modal, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
@@ -29,11 +29,11 @@ const DATA = [
 //     </View>
 // );
 
-const ClassmateScreen= () => {
+const ClassmateScreen = () => {
     const renderItem = ({ item }) => (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => Alert.alert('Xem thông tin cá nhân')}>
-                <Image source={{uri : item.uri}}
+                <Image source={{ uri: item.uri }}
                     style={styles.image} resizeMode={'cover'} />
                 <Text style={styles.nameText}>{item.fullName}</Text>
             </TouchableOpacity>
@@ -48,7 +48,7 @@ const ClassmateScreen= () => {
             <FlatList
                 data={DATA}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => index.toString()}
                 numColumns={3}
             />
             <Modal
@@ -56,7 +56,7 @@ const ClassmateScreen= () => {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                setModalVisible(!modalVisible);
+                    setModalVisible(!modalVisible);
                 }}
             >
                 <View style={styles.centeredView}>
@@ -96,7 +96,7 @@ const TEXTBUTTON = {
 }
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         marginTop: 10,
         marginHorizontal: 10,
         padding: 10,
@@ -107,11 +107,11 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     iconTitle: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },
-    nameText:{
+    nameText: {
         ...TEXT,
         textAlign: "center"
     },
@@ -145,44 +145,44 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '90%',
         height: 120,
-        borderWidth:1,
+        borderWidth: 1,
         borderColor: '#B5B5B5',
         padding: 10
     },
     contentAddStudent: {
-        flex:1,
+        flex: 1,
         borderColor: '#B5B5B5',
         borderRadius: 5,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
     contentButton: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         alignItems: "center",
         justifyContent: 'space-around',
         marginVertical: 5,
     },
-    buttonSubmit:{
-        flex:1,
+    buttonSubmit: {
+        flex: 1,
         backgroundColor: '#00A9B7',
         height: 40,
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
         marginRight: 5,
 
     },
-    buttonCancel:{
-        flex:1,
+    buttonCancel: {
+        flex: 1,
         backgroundColor: '#B5B5B5',
         height: 40,
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
         marginLeft: 5,
     },
-    buttonSubmitText:{
+    buttonSubmitText: {
         ...TEXTBUTTON,
         elevation: 2,
     },
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     EmailContainer: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
         borderWidth: 1,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     inputMail: {
-        flex:1,
+        flex: 1,
     },
 });
 
