@@ -1,16 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Button, Alert } from "react-native";
-import { Avatar } from "react-native-elements"
+import { View, Text, StyleSheet, TouchableOpacity, Button, Alert, Image } from "react-native";
+import {Avatar} from "react-native-elements"
 
 const ProfileScreen = ({ navigation }) => {
     return (
 
         <View style={styles.container}>
             <View style={styles.avatarName}>
-                <Avatar size="large" rounded source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg', }} />
-                <View style={{ paddingLeft: 20 }}>
-                    <Text style={{ fontSize: 18, marginHorizontal: 20 }}>Nguyễn Văn Tĩnh</Text>
-                    <Text style={{ fontSize: 14, marginHorizontal: 20 }}>23/03/2000</Text>
+                <Image source={{uri : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'}}
+                    style={styles.image} resizeMode={'cover'} />
+                <View style={{paddingLeft:20}}>
+                    <Text style={{fontSize:18, marginHorizontal: 20}}>Nguyễn Văn Tĩnh</Text>
+                    <Text style={{fontSize:14, marginHorizontal: 20}}>23/03/2000</Text>
                 </View>
             </View>
             <View style={styles.ContentContain}>
@@ -32,14 +33,6 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.buttonContain}>
-                {/* <Button
-                    title="Chỉnh sửa"
-                    onPress={() => Alert.alert('Chang button pressed')}
-                />
-                <Button
-                    title="Đăng xuất"
-                    onPress={() => Alert.alert('Logout button pressed')}
-                /> */}
                 <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Changr button pressed')}>
                     <Text style={styles.buttonText}>Chỉnh sửa</Text>
                 </TouchableOpacity>
@@ -48,7 +41,6 @@ const ProfileScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
         </View>
-
     );
 };
 
@@ -117,6 +109,15 @@ const styles = StyleSheet.create({
     },
     text: {
         ...TEXT,
+    },
+    image: {
+        width: 70,
+        height: 70,
+        borderRadius: 70 / 2,
+        overflow: "hidden",
+        borderWidth: 2,
+        borderColor: "#00A9B7",
+        marginBottom: 5 
     }
 });
 

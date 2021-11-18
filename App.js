@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import HomeTeacher from "./src/screens/HomeScreen/HomeScreenTeacher/index"
 import ClassTeacher from "./src/screens/ClassScreen/ClassScreenTeacher/index"
+import Constants from "expo-constants";
 
 import { NavigationContainer } from '@react-navigation/native';
 import LoginStackNavigator from './src/navigations/LoginStackNavigator';
@@ -104,5 +105,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
   },
 });
