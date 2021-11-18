@@ -1,17 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button, Alert, Image } from "react-native";
-import {Avatar} from "react-native-elements"
+import { Avatar } from "react-native-elements"
 
 const ProfileScreen = ({ navigation }) => {
     return (
 
         <View style={styles.container}>
             <View style={styles.avatarName}>
-                <Image source={{uri : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'}}
+                <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
                     style={styles.image} resizeMode={'cover'} />
-                <View style={{paddingLeft:20}}>
-                    <Text style={{fontSize:18, marginHorizontal: 20}}>Nguyễn Văn Tĩnh</Text>
-                    <Text style={{fontSize:14, marginHorizontal: 20}}>23/03/2000</Text>
+                <View style={{ paddingLeft: 20 }}>
+                    <Text style={{ fontSize: 18, marginHorizontal: 20 }}>Nguyễn Văn Tĩnh</Text>
+                    <Text style={{ fontSize: 14, marginHorizontal: 20 }}>23/03/2000</Text>
                 </View>
             </View>
             <View style={styles.ContentContain}>
@@ -33,7 +33,7 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.buttonContain}>
-                <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Changr button pressed')}>
+                <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Change button pressed')}>
                     <Text style={styles.buttonText}>Chỉnh sửa</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         borderWidth: 2,
         borderColor: "#00A9B7",
-        marginBottom: 5 
+        marginBottom: 5
     }
 });
 

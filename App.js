@@ -9,6 +9,7 @@ import Constants from "expo-constants";
 
 import { NavigationContainer } from '@react-navigation/native';
 import LoginStackNavigator from './src/navigations/LoginStackNavigator';
+import AppNavigator from './src/navigations/index'
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -28,32 +29,6 @@ export default function App() {
     checkForFirstTimeLoaded();
   }, []);
 
-  const slides = [
-    {
-      key: 1,
-      image: require('./src/assets/intro/intro1.png'),
-      desc: 'Chào mừng bạn đến với BKEDU',
-      backgroundColor: '#28A490',
-    },
-    {
-      key: 2,
-      image: require('./src/assets/intro/intro2.png'),
-      desc: 'Học tập toàn diện',
-      backgroundColor: '#28A490',
-    },
-    {
-      key: 3,
-      image: require('./src/assets/intro/intro3.png'),
-      desc: 'Đầy đủ tính năng',
-      backgroundColor: '#28A490',
-    },
-    {
-      key: 4,
-      image: require('./src/assets/intro/intro4.png'),
-      desc: 'Hiệu quả tuyệt đối',
-      backgroundColor: '#28A490',
-    }
-  ];
 
   const handleDone = () => {
     setIsFirstTimeLoad(false);
@@ -76,7 +51,7 @@ export default function App() {
     //   <HomeTeacher />
     // </>
     <NavigationContainer>
-      <LoginStackNavigator />
+      <AppNavigator />
     </NavigationContainer>
   )
 
