@@ -41,7 +41,7 @@ const DetailExerciseTeacher = ({ navigation }) => {
         <Text style={styles.timeSubmitText}>Ngày nộp: {item.timeSubmit}</Text>
       </View>
       <View style={styles.listResult}>
-        <CustomButton title={'Chi tiết'} onPress={() => navigation.navigate('ExercisesClassDetailSubmit')} />
+        <CustomButton title={'Chi tiết'} onPress={() => navigation.navigate('DetailSubmitTeacher')} />
       </View>
     </View>
   );

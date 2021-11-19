@@ -8,6 +8,7 @@ import StudentsClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeache
 import ClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ClassScreenTeacher";
 import ExercisesClassScreenTeacher from "../screens/ClassScreen/ClassScreenTeacher/ExerciseClassTeacher";
 import DetailSubmitTeacher from "../screens/ClassScreen/ClassScreenTeacher/components/DetailSubmitTeacher"
+import DetailExerciseTeacher from "../screens/ClassScreen/ClassScreenTeacher/components/DetailExerciseTeacher"
 
 import { MainStackNavigatorTeacherScreen, ProfileStackNavigatorTeacherScreen } from "./StackNavigator";
 
@@ -54,6 +55,8 @@ function ExerciseStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="ExercisesClass" component={ExercisesClassScreenTeacher}
+        options={{ headerShown: false }} />
+      <Stack.Screen name="DetailExerciseTeacher" component={DetailExerciseTeacher}
         options={{ headerShown: false }} />
       <Stack.Screen name="DetailSubmitTeacher" component={DetailSubmitTeacher}
         options={{ headerShown: false }} />
