@@ -4,8 +4,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import CustomButton from "../../../components/CustomButton"
 import AddButtonComponent from "../../../components/AddButtonComponent"
-import DatePickerApp from "../../../components/DatePickerApp"
-
 const DATA = [
     {
         id: '123456',
@@ -23,46 +21,30 @@ const DATA = [
 
 ];
 
-// const Item = ({ title, desc, deadline }) => (
-//     <View style={styles.container}>
-//         <View style={styles.desciption}>
-//             <View style={styles.iconTitle}>
-//                 <MaterialIcons name="assignment" size={24} color="grey" />
-//                 <Text style={styles.titleText}> {title}</Text>
-//             </View>
-//             <Text style={styles.descText}>{desc}</Text>
-//             <Text style={styles.deadlineText}>Hạn nộp: {deadline}</Text>
-//         </View>
-//         <View style={styles.listResult}>
-//             <Text style={styles.titleText}>Thang điểm: 10</Text>
-//             {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => Alert.alert('Hiển thị danh sách bài nộp')}>
-//                 <Text style={styles.buttonText}>Danh sách bài nộp</Text>
-//             </TouchableOpacity> */}
-//             <CustomButton title={'Danh sách bài nộp'} onPress={() => Alert.alert('Hiển thị danh sách')} />
-//         </View>
-//     </View>
-// );
-
-const ExercisesClassScreenTeacher = ({ navigation }) => {
-    const renderItem = ({ item }) => (
-        <View style={styles.container}>
-            <View style={styles.desciption}>
-                <View style={styles.iconTitle}>
-                    <MaterialIcons name="assignment" size={24} color="grey" />
-                    <Text style={styles.titleText}> {item.title}</Text>
-                </View>
-                <Text style={styles.descText}>{item.desc}</Text>
-                <Text style={styles.deadlineText}>Hạn nộp: {item.deadline}</Text>
-
+const Item = ({ title, desc, deadline, navigation }) => (
+    <View style={styles.container}>
+        <View style={styles.desciption}>
+            <View style={styles.iconTitle}>
+                <MaterialIcons name="assignment" size={24} color="grey" />
+                <Text style={styles.titleText}> {title}</Text>
             </View>
-            <View style={styles.listResult}>
-                <Text style={styles.titleText}>Thang điểm: 10</Text>
-                {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => navigation.push("ExercisesClassDetail", {name:"{item.desc}"})} >
+            <Text style={styles.descText}>{desc}</Text>
+            <Text style={styles.deadlineText}>Hạn nộp: {deadline}</Text>
+
+        </View>
+        <View style={styles.listResult}>
+            <Text style={styles.titleText}>Thang điểm: 10</Text>
+            {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => Alert.alert('Hiển thị danh sách bài nộp')}>
                 <Text style={styles.buttonText}>Danh sách bài nộp</Text>
             </TouchableOpacity> */}
-                <CustomButton title={'Danh sách bài nộp'} onPress={() => navigation.navigate({ name: "DetailSubmitTeacher", params: { name: item.desc } })} />
-            </View>
+            <CustomButton title={'Xem'} onPress={() => navigation.navigate('AssignmentSubmitSubject')} />
         </View>
+    </View>
+);
+
+const AssignmentSubjectScreen = ({ navigation }) => {
+    const renderItem = ({ item }) => (
+        <Item title={item.title} desc={item.desc} deadline={item.deadline} navigation={navigation} />
     );
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -75,38 +57,10 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
-            <AddButtonComponent onPress={() => setModalVisible(true)} />
+
             {/* <AddButtonComponent onPress={() => setModalVisible(true)} /> */}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <View style={styles.contentAddExercise}>
-                            <View style={styles.DescContainer}>
-                                <TextInput style={styles.inputDesc} onChangeText={onChangeText} value={text} placeholder='Mô tả bài tập lớn' />
-                            </View>
-                            <View style={styles.selectedDate}>
-                                <TextInput style={styles.inputDate} onChangeText={onChangeText} value={text} placeholder='Hạn nộp' />
-                                <DatePickerApp style={styles.datepickerapp} />
-                            </View>
-                            <View style={styles.contentButton}>
-                                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã thêm bài tập thành công')}>
-                                    <Text style={styles.buttonSubmitText}>Tạo bài tập</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.buttonCancelText}>Hủy</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+
+
         </SafeAreaView>
     );
 }
@@ -276,4 +230,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ExercisesClassScreenTeacher;
+export default AssignmentSubjectScreen;

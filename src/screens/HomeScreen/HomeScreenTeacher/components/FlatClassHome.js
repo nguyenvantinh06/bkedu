@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, Pressable, TextInput } from 'react-native';
 
 import CustomButton from "../../../../components/CustomButton"
@@ -19,17 +19,16 @@ const DATA = [
   },
 ];
 
-const FlatClassHome = ({navigation}) => {
+const FlatClassHome = ({ navigation }) => {
   const renderItem = ({ item }) => (
-    // <TouchableOpacity onPress={() => navigation.navigate('DetailClass')} >
-    <TouchableOpacity onPress={() => Alert.alert('DetailClass')} >
+    <TouchableOpacity onPress={() => navigation.navigate('ClassScreen')}>
       <View style={styles.container}>
         <View style={styles.desciptionContent}>
           <Text style={styles.subjectText}>{item.subjectClass}</Text>
           <Text style={styles.classTeachText}>Lớp: {item.classTeach}</Text>
           <Text style={styles.teacherText}>{item.teacher}</Text>
         </View>
-        <Image source={{uri : item.icon}} style={styles.image} />
+        <Image source={{ uri: item.icon }} style={styles.image} />
       </View>
     </TouchableOpacity>
   );
@@ -41,7 +40,7 @@ const FlatClassHome = ({navigation}) => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => index.toString()}
       />
       {/* <AddButtonComponent onPress={() => Alert.alert('Thêm Lớp học')} /> */}
       <AddButtonComponent onPress={() => setModalVisible(true)} />
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 5,
     shadowOpacity: 1.0,
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
   },
   contain: {
     flex: 1,
@@ -116,32 +115,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  desciptionContent:{
+  desciptionContent: {
     flex: 1,
     justifyContent: "center",
   },
   image: {
-    flex:1,
+    flex: 1,
     resizeMode: 'contain',
     justifyContent: "center",
     alignItems: "center",
-    marginRight:5
+    marginRight: 5
   },
   classTeachText: {
     ...TEXT,
   },
-  subjectText:{
+  subjectText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginVertical: 5,
-    color:'white'
+    color: 'white'
   },
-  teacherText:{
+  teacherText: {
     ...TEXT,
-    marginVertical: 5,  
+    marginVertical: 5,
   },
   iconTitle: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -166,19 +165,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '90%',
     height: 200,
-    borderWidth:1,
+    borderWidth: 1,
     borderColor: '#B5B5B5',
     padding: 10
   },
   contentAddClass: {
-    flex:1,
+    flex: 1,
     borderColor: '#B5B5B5',
     borderRadius: 5,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   inputContainer: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     backgroundColor: 'white',
     borderWidth: 1,
@@ -188,34 +187,34 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   inputClass: {
-    flex:1,
+    flex: 1,
   },
   contentButton: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     alignItems: "center",
     justifyContent: 'space-around',
     marginVertical: 5,
   },
-  buttonSubmit:{
-    flex:1,
+  buttonSubmit: {
+    flex: 1,
     backgroundColor: '#00A9B7',
     height: 40,
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    marginRight: 5,   
+    marginRight: 5,
   },
-  buttonCancel:{
-    flex:1,
+  buttonCancel: {
+    flex: 1,
     backgroundColor: '#B5B5B5',
     height: 40,
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
     marginLeft: 5,
   },
-  buttonSubmitText:{
+  buttonSubmitText: {
     ...TEXTBUTTON,
     elevation: 2,
   },
