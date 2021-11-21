@@ -12,16 +12,16 @@ const AddButtonComponent = ({onPress}) => {
 
 const styles = StyleSheet.create({
     addButton: {
-        height: 50,
-        width: 50,
+        height: 55,
+        width: 55,
         elevation: 3,
         borderColor: "#00F",
         borderRadius: 30,
         alignItems: "center",
         justifyContent: "center",
         position: "absolute",
-        bottom: 25,
-        right: 25,
+        bottom: 30,
+        right: 30,
         backgroundColor: '#00A9B7'
     },
     addIcon: {

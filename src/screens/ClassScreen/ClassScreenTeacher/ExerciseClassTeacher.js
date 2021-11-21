@@ -66,7 +66,8 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
     );
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [text, onChangeText] = React.useState(null);
+    const [descText, onChangeDescText] = React.useState(null);
+    const [dateSelect, onChangeDateSelect] = React.useState(null);
 
     return (
         <SafeAreaView style={styles.contain}>
@@ -89,10 +90,10 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                     <View style={styles.modalView}>
                         <View style={styles.contentAddExercise}>
                             <View style={styles.DescContainer}>
-                                <TextInput style={styles.inputDesc} onChangeText={onChangeText} value={text} placeholder='Mô tả bài tập lớn' />
+                                <TextInput style={styles.inputDesc} onChangeText={onChangeDescText} value={descText} placeholder='Mô tả bài tập lớn' />
                             </View>
                             <View style={styles.selectedDate}>
-                                <TextInput style={styles.inputDate} onChangeText={onChangeText} value={text} placeholder='Hạn nộp' />
+                                <TextInput style={styles.inputDate} onChangeText={onChangeDateSelect} value={dateSelect} placeholder='Hạn nộp' />
                                 <DatePickerApp style={styles.datepickerapp} />
                             </View>
                             <View style={styles.contentButton}>

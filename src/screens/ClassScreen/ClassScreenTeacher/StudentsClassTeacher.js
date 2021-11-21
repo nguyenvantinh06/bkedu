@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Image, Modal, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AddButtonComponent from "../../../components/AddButtonComponent"
+import AddActionButtonStudents from "../../../components/AddActionButtonStudents"
 
 const DATA = [
     {
@@ -50,7 +51,7 @@ const StudentsClassScreenTeacher = () => {
                 keyExtractor={(item, index) => index.toString()}
                 numColumns={3}
             />
-            <AddButtonComponent onPress={() => setModalVisible(true)} />
+            {/* <AddButtonComponent onPress={() => setModalVisible(true)} />
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -77,7 +78,8 @@ const StudentsClassScreenTeacher = () => {
                     </View>
                 </View>
             </Modal>
-            {/* <AddButtonComponent onPress={() => Alert.alert('Modal Thêm học sinh')} /> */}
+            <AddButtonComponent onPress={() => Alert.alert('Modal Thêm học sinh')} /> */}
+            <AddActionButtonStudents />
         </SafeAreaView>
     );
 }
