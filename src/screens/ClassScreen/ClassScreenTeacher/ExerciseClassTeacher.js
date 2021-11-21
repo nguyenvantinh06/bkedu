@@ -60,7 +60,7 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                 {/* <TouchableOpacity style={styles.buttonListSubmit} onPress={() => navigation.push("ExercisesClassDetail", {name:"{item.desc}"})} >
                 <Text style={styles.buttonText}>Danh sách bài nộp</Text>
             </TouchableOpacity> */}
-                <CustomButton title={'Danh sách bài nộp'} onPress={() => navigation.navigate({ name: "DetailSubmitTeacher", params: { name: item.desc } })} />
+                <CustomButton title={'Danh sách bài nộp'} onPress={() => navigation.navigate({ name: "DetailExerciseTeacher", params: { name: item.desc } })} />
             </View>
         </View>
     );

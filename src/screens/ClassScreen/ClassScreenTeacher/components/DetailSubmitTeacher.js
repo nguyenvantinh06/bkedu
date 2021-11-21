@@ -35,7 +35,8 @@ const DATA = [
 const DetailSubmitTeacher = ({ route, item }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [text, onChangeText] = React.useState(null);
+  const [text1, onChangeText1] = React.useState(null);
+  const [text2, onChangeText2] = React.useState(null);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,10 +74,10 @@ const DetailSubmitTeacher = ({ route, item }) => {
           <View style={styles.modalView}>
             <View style={styles.contentAddClass}>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Điểm' />
+                <TextInput style={styles.inputClass} onChangeText={onChangeText1} value={text1} placeholder='Điểm' />
               </View>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Nhận xét' />
+                <TextInput style={styles.inputClass} onChangeText={onChangeText2} value={text2} placeholder='Nhận xét' />
               </View>
               <View style={styles.contentButton}>
                 <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã chấm bài')}>
