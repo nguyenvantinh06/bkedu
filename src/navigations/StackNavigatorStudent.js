@@ -10,7 +10,6 @@ import AssignmentSubmittedScreenStudent from "../screens/ClassScreen/ClassScreen
 import SubjectScreenStudent from "../screens/ClassScreen/ClassScreenStudent/SubjectScreenStudent";
 import FileSubjectScreen from "../screens/ClassScreen/ClassScreenStudent/FileSubjectScreen";
 import AssignmentSubjectScreen from "../screens/ClassScreen/ClassScreenStudent/AssignmentSubjectScreen";
-import { BottomTabNavigatorStudentClass } from "./TabNavigatorStudent";
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 

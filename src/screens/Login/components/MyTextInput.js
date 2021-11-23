@@ -1,12 +1,13 @@
-import React from 'react'
-import { View, TextInput, StyleSheet, Dimensions } from 'react-native'
+import React, { useState } from 'react'
+import { View, TextInput, StyleSheet, Dimensions, Alert } from 'react-native'
 
 const { width, height } = Dimensions.get('screen');
 
-const MyTextInput = ({ placeholder, isPassword }) => {
+const MyTextInput = ({ placeholder, isPassword, onChangeValue }) => {
+
   return (
     <View style={styles.container}>
-      <TextInput secureTextEntry={isPassword ? true : false} placeholder={placeholder} style={styles.textInput} />
+      <TextInput secureTextEntry={isPassword ? true : false} placeholder={placeholder} style={styles.textInput} onChangeText={(value) => {onChangeValue(value)}} />
     </View>
   )
 }
