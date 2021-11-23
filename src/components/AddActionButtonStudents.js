@@ -3,16 +3,15 @@ import React, {useState} from 'react';
 import { View, StyleSheet, Text, Alert, Modal, TextInput, TouchableOpacity, Picker } from 'react-native';
 
 import ActionButton from 'react-native-action-button';
-
+import { Formik } from 'formik';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { MaterialIcons } from '@expo/vector-icons'; 
-
+import {AddStudentSchema} from "./validation"
 
 export default function AddActionButtonStudents() {
     const [StudentModalVisible, setStudentModalVisible] = useState(false);
     const [ClassModalVisible, setClassModalVisible] = useState(false);
 
-    const [EmailText, onChangeEmailText] = useState();
     const [selectedClass, setSelectedClass] = useState("");
 
     return (
@@ -44,17 +43,38 @@ export default function AddActionButtonStudents() {
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <View style={styles.contentAddStudent}>
-                        <View style={styles.EmailContainer}>
-                            <TextInput style={styles.inputMail} onChangeText={onChangeEmailText} value={EmailText} placeholder='Email học sinh' />
-                        </View>
-                    <View style={styles.contentButton}>
-                        <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã thêm học sinh')}>
-                            <Text style={styles.buttonSubmitText}>Thêm học sinh</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonCancel} onPress={() => setStudentModalVisible(!StudentModalVisible)}>
-                            <Text style={styles.buttonCancelText}>Hủy</Text>
-                        </TouchableOpacity>
-                        </View>
+                        <Formik 
+                            initialValues={{ email: '' }}
+                            onSubmit={values => console.log(values)}
+                            validationSchema={AddStudentSchema}
+                        >
+                            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                            <>
+                            
+                                <View style={styles.EmailContainer}>
+                                    <TextInput 
+                                        style={styles.inputMail}
+                                        placeholder='Email học sinh'
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        value={values.email} 
+                                    />
+                                    {errors.email && touched.email ? 
+                                        <Text style={{color: 'red'}}>{errors.email}</Text> : null}
+
+                                </View>
+                                <View style={styles.contentButton}>
+                                    <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
+                                        <Text style={styles.buttonSubmitText}>Thêm học sinh</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.buttonCancel} onPress={() => setStudentModalVisible(!StudentModalVisible)}>
+                                        <Text style={styles.buttonCancelText}>Hủy</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            
+                            </>
+                            )}
+                        </Formik>
                     </View>
                 </View>
             </View>

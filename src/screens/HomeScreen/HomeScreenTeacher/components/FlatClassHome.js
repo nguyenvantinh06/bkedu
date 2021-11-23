@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, Pressable, TextInput } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput } from 'react-native';
+import { Formik } from 'formik';
 
 import CustomButton from "../../../../components/CustomButton"
 import AddButtonComponent from "../../../../components/AddButtonComponent"
+import {createClassSchema} from "../../../../components/validation"
 
 const DATA = [
   {
@@ -33,8 +35,12 @@ const FlatClassHome = ({ navigation }) => {
     </TouchableOpacity>
   );
   const [modalVisible, setModalVisible] = useState(false);
-  const [text, onChangeText] = React.useState(null);
+  const [subjectName, setSubjectName] = useState("");
+  const [className, setClassName] = useState("");
 
+  function createClass(){
+    console.log(subjectName, className);
+  }
   return (
     <SafeAreaView style={styles.contain}>
       <FlatList
@@ -55,20 +61,47 @@ const FlatClassHome = ({ navigation }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.contentAddClass}>
+            <Formik
+              initialValues={{ subjectName: '', className:'' }}
+              onSubmit={values => console.log(values)}
+              validationSchema = {createClassSchema}
+            >
+              {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+              <>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Tên môn học' />
+                <TextInput 
+                  style={styles.inputClass} 
+                  onChangeText={handleChange('subjectName')}
+                  onBlur={handleBlur('subjectName')}
+                  value={values.subjectName}
+                  placeholder='Tên môn học' 
+                />
+                {errors.subjectName && touched.subjectName ? 
+                  <Text style={{ color: 'red', textAlign:'center', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>{errors.subjectName}</Text> : null}
               </View>
+            
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Lớp học' />
+                <TextInput 
+                  style={styles.inputClass} 
+                  onChangeText={handleChange('className')}
+                  onBlur={handleBlur('className')}
+                  value={values.className}
+                  placeholder='Lớp học' 
+                />
+                {errors.className && touched.className ? 
+                  <Text style={{color: 'red', marginTop: 10}}>{errors.className}</Text> : null}
               </View>
               <View style={styles.contentButton}>
-                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã tạo lớp thành công')}>
+                <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
                   <Text style={styles.buttonSubmitText}>Tạo lớp</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
                   <Text style={styles.buttonCancelText}>Hủy</Text>
                 </TouchableOpacity>
               </View>
+              </>
+              )}
+            </Formik>
             </View>
           </View>
         </View>
@@ -188,6 +221,8 @@ const styles = StyleSheet.create({
   },
   inputClass: {
     flex: 1,
+    alignItems: 'center', 
+    justifyContent: 'center'
   },
   contentButton: {
     flex: 1,

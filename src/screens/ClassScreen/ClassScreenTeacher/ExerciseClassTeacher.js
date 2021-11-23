@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import {Formik} from 'formik';
 import CustomButton from "../../../components/CustomButton"
 import AddButtonComponent from "../../../components/AddButtonComponent"
 import DatePickerApp from "../../../components/DatePickerApp"
@@ -66,8 +66,10 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
     );
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [descText, onChangeDescText] = React.useState(null);
-    const [dateSelect, onChangeDateSelect] = React.useState(null);
+    const [dateSelect, onChangeDateSelect] = useState("");
+    function datepick() {
+        console.log()
+    }
 
     return (
         <SafeAreaView style={styles.contain}>
@@ -89,21 +91,36 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.contentAddExercise}>
-                            <View style={styles.DescContainer}>
-                                <TextInput style={styles.inputDesc} onChangeText={onChangeDescText} value={descText} placeholder='Mô tả bài tập lớn' />
-                            </View>
-                            <View style={styles.selectedDate}>
-                                <TextInput style={styles.inputDate} onChangeText={onChangeDateSelect} value={dateSelect} placeholder='Hạn nộp' />
-                                <DatePickerApp style={styles.datepickerapp} />
-                            </View>
-                            <View style={styles.contentButton}>
-                                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã thêm bài tập thành công')}>
-                                    <Text style={styles.buttonSubmitText}>Tạo bài tập</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.buttonCancelText}>Hủy</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <Formik 
+                                 initialValues={{ descAssignment: '' }}
+                                 onSubmit={values => console.log(values)}
+                            >
+                                {({ handleChange, handleBlur, handleSubmit, values }) => (
+                                    <>
+                                        <View style={styles.DescContainer}>
+                                            <TextInput 
+                                                style={styles.inputDesc} 
+                                                placeholder='Mô tả bài tập lớn' 
+                                                onChangeText={handleChange('descAssignment')}
+                                                onBlur={handleBlur('descAssignment')}
+                                                value={values.descAssignment}
+                                            />
+                                        </View>
+                                        <View style={styles.selectedDate}>
+                                            <TextInput style={styles.inputDate} onChangeText={onChangeDateSelect} value={dateSelect} placeholder='Hạn nộp' />
+                                            <DatePickerApp style={styles.datepickerapp} onPress={datepick} />
+                                        </View>
+                                        <View style={styles.contentButton}>
+                                            <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
+                                                <Text style={styles.buttonSubmitText}>Tạo bài tập</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
+                                                <Text style={styles.buttonCancelText}>Hủy</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </>
+                                )}
+                            </Formik>
                         </View>
                     </View>
                 </View>
