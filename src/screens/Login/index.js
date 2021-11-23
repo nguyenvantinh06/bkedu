@@ -1,9 +1,55 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Text, Platform, Image } from 'react-native';
+import { View, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Text, Platform, Image, Alert, TextInput } from 'react-native';
 import MyTextInput from './components/MyTextInput';
 import MyButton from './components/MyButton';
+import _ from "lodash";
+import jwt from "jwt-decode";
 
 export default class LoginScreen extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      access_token: "",
+      refresh_token: ""
+    }
+  }
+
+  handleChangeEmail = _.debounce((email) => {
+    this.setState({
+      email: email
+    })
+  }, 300)
+
+  handleChangePassword = _.debounce((password) => {
+    this.setState({
+      password: password
+    })
+  }, 300)
+
+  handleLogin = async() => {
+    fetch("https://bkedu-backend.herokuapp.com/v1/auth", {
+      method: "POST",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
+    }).then(res => res.json())
+    .then(data => {
+      if (data.code == 200) {
+        this.setState({access_token: data.result.access_token, refresh_token: data.result.refresh_token});
+        const user = jwt(data.result.access_token);
+        this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
+      } else Alert.alert("Email or password is wrong!");
+    })
+  }
+
   render() {
     return (
       <KeyboardAvoidingView
@@ -14,8 +60,8 @@ export default class LoginScreen extends Component {
           <Image source={require('../../assets/intro/intro1.png')} style={styles.logo} />
         </View>
         <View style={styles.loginContainer}>
-          <MyTextInput placeholder={'Email'} />
-          <MyTextInput placeholder={'Mật khẩu'} isPassword={true} />
+          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail}/>
+          <MyTextInput placeholder={'Mật khẩu'} isPassword={true} onChangeValue={this.handleChangePassword} />
           <TouchableOpacity
             style={styles.forgotPasswordContainer}
             onPress={() => { this.props.navigation.navigate('ForgotPasswordScreen') }}
@@ -25,7 +71,7 @@ export default class LoginScreen extends Component {
           <MyButton
             title={'Đăng nhập'}
             backgroundColor={'#00A9B7'}
-            onPress={() => { this.props.navigation.navigate('BottomTabNavigatorTeacher') }}
+            onPress={this.handleLogin}
           />
           <View style={styles.or}>
             <Text> Hoặc </Text>
