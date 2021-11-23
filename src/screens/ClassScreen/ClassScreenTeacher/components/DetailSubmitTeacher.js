@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Alert, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import {Formik} from "formik"
 import CustomButton from "../../../../components/CustomButton"
+import {detailSubmitSchema} from "../../../../components/validation"
+
 
 const DATA = [
   {
@@ -35,8 +37,8 @@ const DATA = [
 const DetailSubmitTeacher = ({ route, item }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [text1, onChangeText1] = React.useState(null);
-  const [text2, onChangeText2] = React.useState(null);
+  // const [text1, onChangeText1] = React.useState(null);
+  // const [text2, onChangeText2] = React.useState(null);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,20 +75,46 @@ const DetailSubmitTeacher = ({ route, item }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.contentAddClass}>
-              <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText1} value={text1} placeholder='Điểm' />
-              </View>
-              <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText2} value={text2} placeholder='Nhận xét' />
-              </View>
-              <View style={styles.contentButton}>
-                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã chấm bài')}>
-                  <Text style={styles.buttonSubmitText}>Xác nhận</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.buttonCancelText}>Hủy</Text>
-                </TouchableOpacity>
-              </View>
+              <Formik 
+                initialValues={{mark:'', comment:''}}
+                onSubmit={values => console.log(values)}
+                validationSchema={detailSubmitSchema}
+              >
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                  <>
+                    <View style={styles.inputContainer}>
+                      <TextInput 
+                        style={styles.inputClass} 
+                        placeholder='Điểm'
+                        onChangeText={handleChange('mark')}
+                        onBlur={handleBlur('mark')}
+                        value={values.mark} 
+                      />
+                      {errors.mark && touched.mark ? 
+                        <Text style={{color: 'red', marginTop: 10}}>{errors.mark}</Text> : null}
+                    </View>
+                    <View style={styles.inputContainer}>
+                      <TextInput 
+                        style={styles.inputClass}  
+                        placeholder='Nhận xét'
+                        onChangeText={handleChange('comment')}
+                        onBlur={handleBlur('comment')}
+                        value={values.comment} 
+                      />
+                      {errors.comment && touched.comment ? 
+                        <Text style={{color: 'red', marginTop: 10}}>{errors.comment}</Text> : null}
+                    </View>
+                    <View style={styles.contentButton}>
+                      <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
+                        <Text style={styles.buttonSubmitText}>Xác nhận</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
+                        <Text style={styles.buttonCancelText}>Hủy</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </>
+                )}
+              </Formik>
             </View>
           </View>
         </View>

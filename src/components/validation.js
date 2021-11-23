@@ -15,4 +15,26 @@ const createClassSchema = Yup.object().shape({
         .required('Bắt buộc'),
 });
 
-export {AddStudentSchema, createClassSchema}
+const detailSubmitSchema = Yup.object().shape({
+    mark: Yup.number()
+        .typeError('Nhập số điểm')
+        .min(0, 'Điểm tối thiểu 0')
+        .max(10, 'Điểm tối đa 10')
+        .required('Vui lòng nhập điểm'),
+    comment: Yup.string()
+        .max(50, 'Quá dài')
+});
+
+const NotificationSchema = Yup.object().shape({
+    notification: Yup.string()
+    .max(100, 'Quá dài')
+    .required('Bắt buộc'),
+});
+
+const createAssignmentSchema = Yup.object().shape({
+    descAssignment: Yup.string()
+    .max(50, 'Quá dài')
+    .required('Bắt buộc'),
+});
+
+export {AddStudentSchema, createClassSchema, detailSubmitSchema, NotificationSchema, createAssignmentSchema}

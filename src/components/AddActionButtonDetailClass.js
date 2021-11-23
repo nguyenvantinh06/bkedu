@@ -3,8 +3,9 @@ import React, {useState} from 'react';
 import { View, StyleSheet, Text, Alert, Modal, TextInput, TouchableOpacity } from 'react-native';
 
 import ActionButton from 'react-native-action-button';
-
+import {Formik} from 'formik';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {NotificationSchema} from "./validation"
 
 export default function AddActionButtonDetailClass() {
   const [ImagemodalVisible, setImageModalVisible] = useState(false);
@@ -106,17 +107,35 @@ return (
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View style={styles.contentAddStudent}>
-            <View style={styles.EmailContainer}>
-              <TextInput style={styles.inputMail} onChangeText={onChangeNoti} value={noti} placeholder='Thông báo' />
-            </View>
-            <View style={styles.contentButton}>
-              <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã thêm thông báo thành công')}>
-                <Text style={styles.buttonSubmitText}>Thêm thông báo</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonCancel} onPress={() => setNotimodalVisible(!NotimodalVisible)}>
-                <Text style={styles.buttonCancelText}>Hủy</Text>
-              </TouchableOpacity>
-            </View>
+            <Formik 
+              initialValues={{ notification: '' }}
+              onSubmit={values => console.log(values)}
+              validationSchema={NotificationSchema}
+            >
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+              <>
+                <View style={styles.EmailContainer}>
+                  <TextInput 
+                    style={styles.inputMail} 
+                    placeholder='Thông báo' 
+                    onChangeText={handleChange('notification')}
+                    onBlur={handleBlur('notification')}
+                    value={values.notification}  
+                  />
+                  {errors.notification && touched.notification ? 
+                    <Text style={{color: 'red', marginTop: 8}}>{errors.notification}</Text> : null}
+                </View>
+                <View style={styles.contentButton}>
+                  <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
+                    <Text style={styles.buttonSubmitText}>Thêm thông báo</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.buttonCancel} onPress={() => setNotimodalVisible(!NotimodalVisible)}>
+                    <Text style={styles.buttonCancelText}>Hủy</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
+            </Formik>
           </View>
         </View>
       </View>

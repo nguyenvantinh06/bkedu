@@ -5,6 +5,7 @@ import {Formik} from 'formik';
 import CustomButton from "../../../components/CustomButton"
 import AddButtonComponent from "../../../components/AddButtonComponent"
 import DatePickerApp from "../../../components/DatePickerApp"
+import {createAssignmentSchema} from "../../../components/validation"
 
 const DATA = [
     {
@@ -67,9 +68,6 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [dateSelect, onChangeDateSelect] = useState("");
-    function datepick() {
-        console.log()
-    }
 
     return (
         <SafeAreaView style={styles.contain}>
@@ -94,8 +92,9 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                             <Formik 
                                  initialValues={{ descAssignment: '' }}
                                  onSubmit={values => console.log(values)}
+                                 validationSchema={createAssignmentSchema}
                             >
-                                {({ handleChange, handleBlur, handleSubmit, values }) => (
+                                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                                     <>
                                         <View style={styles.DescContainer}>
                                             <TextInput 
@@ -105,10 +104,11 @@ const ExercisesClassScreenTeacher = ({ navigation }) => {
                                                 onBlur={handleBlur('descAssignment')}
                                                 value={values.descAssignment}
                                             />
+                                            {errors.descAssignment && touched.descAssignment ? 
+                                                <Text style={{color: 'red', marginTop:8}}>{errors.descAssignment}</Text> : null}
                                         </View>
                                         <View style={styles.selectedDate}>
-                                            <TextInput style={styles.inputDate} onChangeText={onChangeDateSelect} value={dateSelect} placeholder='Hạn nộp' />
-                                            <DatePickerApp style={styles.datepickerapp} onPress={datepick} />
+                                            <DatePickerApp style={styles.datepickerapp} />
                                         </View>
                                         <View style={styles.contentButton}>
                                             <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
@@ -295,3 +295,32 @@ const styles = StyleSheet.create({
 });
 
 export default ExercisesClassScreenTeacher;
+
+// import React from "react";
+// import { View, Text, StyleSheet, Alert } from "react-native";
+// import DatePickerApp from "../../../components/DatePickerApp"
+
+
+// import AddButtonComponent from "../../../components/AddButtonComponent"
+// import AddActionButtonDetailClass from "../../../components/AddActionButtonDetailClass"
+
+
+// const ExercisesClassScreenTeacher = () => {
+//     return (
+//         <View style={styles.center}>
+//           <Text>This is the Class Screen Teacher</Text>
+//           <DatePickerApp />
+//         </View>
+//     );
+// };
+
+// const styles = StyleSheet.create({
+//     center: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     textAlign: "center",
+//     },
+// });
+
+// export default  ExercisesClassScreenTeacher;
