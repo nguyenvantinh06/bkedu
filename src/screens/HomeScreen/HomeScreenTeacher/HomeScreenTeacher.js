@@ -4,16 +4,9 @@ import { View, Button, Text, StyleSheet } from "react-native";
 import FlatClassHome from "./components/FlatClassHome"
 
 const HomeScreenTeacher = ({ navigation }) => {
-    return (
-        // <View style={styles.center}>
-        //   {/* <Text>This is the home screen</Text>
-        //   <Button title="Go to Class Screen" 
-        //     onPress={() => navigation.navigate("DetailClass")}
-        //   /> */}
-        //   <FlatClassHome />
-        // </View>
-        <FlatClassHome navigation={navigation} />
-    );
+  return (
+    <FlatClassHome navigation={navigation} />
+  );
 };
 
 const styles = StyleSheet.create({

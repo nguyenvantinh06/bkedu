@@ -5,9 +5,7 @@ import FlatClassHome from "./components/FlatClassHome"
 
 const HomeScreenStudent = ({ navigation }) => {
   return (
-    <View style={styles.center}>
-      <FlatClassHome navigation={navigation} />
-    </View>
+    <FlatClassHome navigation={navigation} />
   );
 };
 
