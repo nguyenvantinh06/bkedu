@@ -41,6 +41,37 @@ const FlatClassHome = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
+      {/* <AddButtonComponent onPress={() => Alert.alert('Thêm Lớp học')} /> */}
+      {/* <AddButtonComponent onPress={() => setModalVisible(true)} />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={styles.contentAddClass}>
+              <View style={styles.inputContainer}>
+                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Tên môn học' />
+              </View>
+              <View style={styles.inputContainer}>
+                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Lớp học' />
+              </View>
+              <View style={styles.contentButton}>
+                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã tạo lớp thành công')}>
+                  <Text style={styles.buttonSubmitText}>Tạo lớp</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={styles.buttonCancelText}>Hủy</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal> */}
     </SafeAreaView>
   );
 };

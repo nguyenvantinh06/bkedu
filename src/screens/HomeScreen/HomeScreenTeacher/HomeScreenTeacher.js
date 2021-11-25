@@ -4,9 +4,9 @@ import { View, Button, Text, StyleSheet } from "react-native";
 import FlatClassHome from "./components/FlatClassHome"
 
 const HomeScreenTeacher = ({ navigation }) => {
-    return (
-        <FlatClassHome navigation={navigation} />
-    );
+  return (
+    <FlatClassHome navigation={navigation} />
+  );
 };
 
 const styles = StyleSheet.create({
