@@ -4,6 +4,7 @@ import MyTextInput from './components/MyTextInput';
 import MyButton from './components/MyButton';
 import _ from "lodash";
 import jwt from "jwt-decode";
+import AnimatedLoader from "react-native-animated-loader";
 
 export default class LoginScreen extends Component {
 
@@ -13,7 +14,8 @@ export default class LoginScreen extends Component {
       email: "",
       password: "",
       access_token: "",
-      refresh_token: ""
+      refresh_token: "",
+      visible: false,
     }
   }
 
@@ -30,6 +32,7 @@ export default class LoginScreen extends Component {
   }, 300)
 
   handleLogin = async () => {
+    this.setState({ visible: true })
     fetch("https://bkedu-backend.herokuapp.com/v1/auth", {
       method: "POST",
       headers: {
@@ -40,14 +43,18 @@ export default class LoginScreen extends Component {
         email: this.state.email,
         password: this.state.password
       })
-    }).then(res => res.json())
-      .then(data => {
-        if (data.code == 200) {
-          this.setState({ access_token: data.result.access_token, refresh_token: data.result.refresh_token });
-          const user = jwt(data.result.access_token);
-          this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
-        } else Alert.alert("Email or password is wrong!");
-      })
+    }).then(res => res.json()).then(data => {
+      this.setState({ visible: false })
+      if (data.code == 200) {
+        this.setState({ access_token: data.result.access_token, refresh_token: data.result.refresh_token });
+        const user = jwt(data.result.access_token);
+        this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
+      } else Alert.alert("Email hoặc mật khẩu không đúng!");
+    }).catch((error) => {
+      this.setState({ visible: false })
+      Alert.alert("Có lỗi xảy ra, vui lòng thử lại");
+      console.error(error);
+    });
   }
 
   render() {
@@ -88,6 +95,13 @@ export default class LoginScreen extends Component {
             <Text style={{ color: '#00A9B7' }}>Đăng ký ngay </Text>
           </TouchableOpacity>
         </View>
+        <AnimatedLoader
+          visible={this.state.visible}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../../assets/72659-loader-vb.json")}
+          animationStyle={styles.lottie}
+          speed={1}
+        />
       </KeyboardAvoidingView>
     )
   }
@@ -138,5 +152,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     flexDirection: 'row'
+  },
+  lottie: {
+    width: 100,
+    height: 100
   }
 })
