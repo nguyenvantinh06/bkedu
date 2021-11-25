@@ -5,6 +5,7 @@ import MyButton from './components/MyButton';
 import _ from "lodash";
 import jwt from "jwt-decode";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AnimatedLoader from "react-native-animated-loader";
 
 export default class LoginScreen extends Component {
 
