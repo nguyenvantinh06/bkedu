@@ -68,16 +68,4 @@ const ExercisesStackNavigatorTeacher = createStackNavigator();
 //   );
 // }
 
-const ClassStackNavigatorTeacher = createStackNavigator();
-
-const ClassStackNavigatorTeacherScreen = () => {
-  return (
-    <ClassStackNavigatorTeacher.Navigator screenOptions={screenOptionStyle}>
-      <ClassStackNavigatorTeacher.Screen name="DetailClass" component={HomeScreenTeacher} options={{ title: 'Thông tin Chung' }} />
-      <ClassStackNavigatorTeacher.Screen name="StudentClass" component={ClassScreenTeacher} options={{ title: 'Danh sách học sinh' }} />
-      <ClassStackNavigatorTeacher.Screen name="ExerciseClass" component={HomeScreenTeacher} options={{ title: 'Bài tập' }} />
-    </ClassStackNavigatorTeacher.Navigator>
-  );
-}
-
-export { MainStackNavigatorTeacherScreen, ProfileStackNavigatorTeacherScreen, ClassStackNavigatorTeacherScreen, StudentsStackNavigatorTeacherScreen };
+export { MainStackNavigatorTeacherScreen, ProfileStackNavigatorTeacherScreen, StudentsStackNavigatorTeacherScreen };

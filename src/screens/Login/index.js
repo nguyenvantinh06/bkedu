@@ -28,7 +28,8 @@ export default class LoginScreen extends Component {
     })
   }, 300)
 
-  handleLogin = async() => {
+  handleLogin = async () => {
+    this.setState({ visible: true })
     fetch("https://bkedu-backend.herokuapp.com/v1/auth", {
       method: "POST",
       headers: {
@@ -65,7 +66,7 @@ export default class LoginScreen extends Component {
           <Text style={styles.title}>Xin chào bạn đến với BKedu!!!</Text>
         </View>
         <View style={styles.loginContainer}>
-          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail}/>
+          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail} />
           <MyTextInput placeholder={'Mật khẩu'} isPassword={true} onChangeValue={this.handleChangePassword} />
           <TouchableOpacity
             style={styles.forgotPasswordContainer}
@@ -93,6 +94,13 @@ export default class LoginScreen extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <AnimatedLoader
+          visible={this.state.visible}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../../assets/72659-loader-vb.json")}
+          animationStyle={styles.lottie}
+          speed={1}
+        />
       </KeyboardAvoidingView>
     )
   }

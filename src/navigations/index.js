@@ -20,11 +20,33 @@ function AppNavigator() {
       <Stack.Screen name="BottomTabNavigatorTeacher" component={BottomTabNavigatorTeacher}
         options={{ headerShown: false }} />
       <Stack.Screen name="ClassScreen" component={BottomTabNavigatorTeacherClass}
-        options={{ headerShown: false }} />
+        options={{
+          title: 'Chi tiết môn học',
+          headerStyle: {
+            backgroundColor: '#28A490'
+          },
+          headerTintColor: 'white',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            textAlign: 'center'
+          },
+        }} />
       <Stack.Screen name="BottomTabNavigatorStudent" component={BottomTabNavigatorStudent}
         options={{ headerShown: false }} />
       <Stack.Screen name="BottomTabNavigatorStudentClass" component={BottomTabNavigatorStudentClass}
-        options={{ headerShown: false }} />
+        options={{
+          title: 'Chi tiết môn học',
+          headerStyle: {
+            backgroundColor: '#28A490'
+          },
+          headerTintColor: 'white',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            textAlign: 'center'
+          },
+        }} />
       <Stack.Screen name="NotificationScreen" component={NotificationScreen}
         options={{ headerShown: true }} />
     </Stack.Navigator>

@@ -1,33 +1,30 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, Pressable, TextInput } from 'react-native';
-import AddButtonComponent from "../../../../components/AddButtonComponent"
-import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
-import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Dimensions, TouchableOpacity, Image, TextInput } from "react-native";
 
-import backgroundclass from "../../../../assets/class/flatmath.png"
+const { width, height } = Dimensions.get('screen')
 
-import { ListItem, Avatar } from 'react-native-elements'
 
-const DATA = [
-  {
-    subjectClass: 'Vật lý',
-    classTeach: '7A',
-    teacher: 'Nguyễn Văn Thuần',
-    icon: 'https://www.besonline.in/Physics.png'
-  },
-  {
-    subjectClass: 'Vật lý',
-    classTeach: '8A',
-    teacher: 'Nguyễn Văn Thuần',
-    icon: 'https://www.besonline.in/Physics.png'
-  },
-];
 
 const FlatClassHome = ({ navigation }) => {
+  const DATA = [
+    {
+      subjectClass: 'Vật lý',
+      classTeach: '7A',
+      teacher: 'Nguyễn Văn Thuần',
+      icon: 'https://www.besonline.in/Physics.png'
+    },
+    {
+      subjectClass: 'Vật lý',
+      classTeach: '8A',
+      teacher: 'Nguyễn Văn Thuần',
+      icon: 'https://www.besonline.in/Physics.png'
+    },
+  ];
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('ClassScreen')}>
+    <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigatorStudentClass')}>
       <View style={styles.container}>
-        <View style={styles.descriptionContent}>
+        <View style={styles.desciptionContent}>
           <Text style={styles.subjectText}>{item.subjectClass}</Text>
           <Text style={styles.classTeachText}>Lớp: {item.classTeach}</Text>
           <Text style={styles.teacherText}>{item.teacher}</Text>
@@ -36,8 +33,6 @@ const FlatClassHome = ({ navigation }) => {
       </View>
     </TouchableOpacity>
   );
-  const [modalVisible, setModalVisible] = useState(false);
-  const [text, onChangeText] = React.useState(null);
 
   return (
     <SafeAreaView style={styles.contain}>
@@ -79,7 +74,7 @@ const FlatClassHome = ({ navigation }) => {
       </Modal> */}
     </SafeAreaView>
   );
-}
+};
 
 const TEXT = {
   fontSize: 14,
@@ -95,12 +90,12 @@ const TEXTBUTTON = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: width * 0.95,
     flexDirection: 'row',
     backgroundColor: '#3985f3',
     borderRadius: 5,
     marginTop: 10,
-    marginRight: 10,
-    marginLeft: 10,
+    marginHorizontal: 10,
     padding: 10,
     borderColor: 'grey',
     elevation: 3,
@@ -115,12 +110,14 @@ const styles = StyleSheet.create({
   },
   contain: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   iconClass: {
     flex: 1,
     justifyContent: "center",
   },
-  descriptionContent: {
+  desciptionContent: {
     flex: 1,
     justifyContent: "center",
   },
