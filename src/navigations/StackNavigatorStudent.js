@@ -116,7 +116,7 @@ const SubjectStackNavigatorStudent = createStackNavigator();
 const SubjectStackNavigatorStudentScreen = () => {
   return (
     <SubjectStackNavigatorStudent.Navigator screenOptions={screenOptionStyle}>
-      <SubjectStackNavigatorStudent.Screen name="Subject" component={SubjectScreenStudent} options={{ title: 'Chung' }} />
+      <SubjectStackNavigatorStudent.Screen name="SubjectScreen" component={SubjectScreenStudent} options={{ headerShown: false }} />
     </SubjectStackNavigatorStudent.Navigator>
   );
 }
@@ -124,10 +124,10 @@ const SubjectStackNavigatorStudentScreen = () => {
 const AssignmentSubjectStackNavigatorStudent = createStackNavigator();
 const AssignmentSubjectStackNavigatorStudentScreen = () => {
   return (
-    <AssignmentSubjectStackNavigatorStudent.Navigator screenOptions={screenOptionStyle}>
-      <AssignmentSubjectStackNavigatorStudent.Screen name="AssignmentSubject" component={AssignmentSubjectScreen} options={{ title: 'bài tập' }} />
-      <AssignmentSubjectStackNavigatorStudent.Screen name="AssignmentSubmitSubject" component={AssignmentSubmitScreenStudent} options={{ title: 'bài tập chưa hoàn thành' }} />
-      <AssignmentSubjectStackNavigatorStudent.Screen name="AssignmentSubmittedSubject" component={AssignmentSubmittedScreenStudent} options={{ title: 'bài tập đã hoàn thành' }} />
+    <AssignmentSubjectStackNavigatorStudent.Navigator options={{ headerShown: false }}>
+      <AssignmentSubjectStackNavigatorStudent.Screen name="AssignmentSubject" component={AssignmentSubjectScreen} options={{ title: 'bài tập', headerShown: false }} />
+      <AssignmentSubjectStackNavigatorStudent.Screen name="AssignmentSubmitSubject" component={AssignmentSubmitScreenStudent} options={{ title: 'bài tập chưa hoàn thành', headerShown: false }} />
+      <AssignmentSubjectStackNavigatorStudent.Screen name="AssignmentSubmittedSubject" component={AssignmentSubmittedScreenStudent} options={{ title: 'bài tập đã hoàn thành', headerShown: false }} />
     </AssignmentSubjectStackNavigatorStudent.Navigator>
   );
 }

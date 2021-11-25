@@ -29,7 +29,7 @@ export default class LoginScreen extends Component {
     })
   }, 300)
 
-  handleLogin = async() => {
+  handleLogin = async () => {
     fetch("https://bkedu-backend.herokuapp.com/v1/auth", {
       method: "POST",
       headers: {
@@ -41,13 +41,13 @@ export default class LoginScreen extends Component {
         password: this.state.password
       })
     }).then(res => res.json())
-    .then(data => {
-      if (data.code == 200) {
-        this.setState({access_token: data.result.access_token, refresh_token: data.result.refresh_token});
-        const user = jwt(data.result.access_token);
-        this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
-      } else Alert.alert("Email or password is wrong!");
-    })
+      .then(data => {
+        if (data.code == 200) {
+          this.setState({ access_token: data.result.access_token, refresh_token: data.result.refresh_token });
+          const user = jwt(data.result.access_token);
+          this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
+        } else Alert.alert("Email or password is wrong!");
+      })
   }
 
   render() {
@@ -60,7 +60,7 @@ export default class LoginScreen extends Component {
           <Image source={require('../../assets/intro/intro1.png')} style={styles.logo} />
         </View>
         <View style={styles.loginContainer}>
-          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail}/>
+          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail} />
           <MyTextInput placeholder={'Mật khẩu'} isPassword={true} onChangeValue={this.handleChangePassword} />
           <TouchableOpacity
             style={styles.forgotPasswordContainer}

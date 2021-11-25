@@ -91,50 +91,16 @@ const BottomTabNavigatorTeacherClass = () => {
       <TabBottomTeacherClass.Screen
         name="DetailClass"
         component={ClassScreenTeacher}
-        options={{
-          title: 'Chi tiết',
-          headerStyle: {
-            backgroundColor: '#28A490'
-          },
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            textAlign: 'center'
-          },
-          headerRight: () => <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
-        }}
+        options={{ headerShown: false }}
       />
       <TabBottomTeacherClass.Screen
         name="StudentsClass"
         component={StudentsClassScreenTeacher}
-        options={{
-          title: 'Danh sách học sinh',
-          headerStyle: {
-            backgroundColor: '#28A490'
-          },
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            textAlign: 'center'
-          },
-        }} />
+        options={{ headerShown: false }} />
       <TabBottomTeacherClass.Screen
         name="ExerciseStackNavigator"
         component={ExerciseStackNavigator}
-        options={{
-          title: 'Bài tập',
-          headerStyle: {
-            backgroundColor: '#28A490'
-          },
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            textAlign: 'center'
-          },
-        }} />
+        options={{ headerShown: false }} />
     </TabBottomTeacherClass.Navigator>
   );
 };

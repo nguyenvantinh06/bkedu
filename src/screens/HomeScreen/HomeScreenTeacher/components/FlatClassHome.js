@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, Pressable, TextInput } from 'react-native';
-
-import CustomButton from "../../../../components/CustomButton"
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput, Dimensions } from 'react-native';
 import AddButtonComponent from "../../../../components/AddButtonComponent"
 
-const DATA = [
-  {
-    subjectClass: 'Vật lý',
-    classTeach: '7A',
-    teacher: 'Nguyễn Văn Thuần',
-    icon: 'https://www.besonline.in/Physics.png'
-  },
-  {
-    subjectClass: 'Vật lý',
-    classTeach: '8A',
-    teacher: 'Nguyễn Văn Thuần',
-    icon: 'https://www.besonline.in/Physics.png'
-  },
-];
+const { width, height } = Dimensions.get('screen');
+
+
 
 const FlatClassHome = ({ navigation }) => {
+
+  const DATA = [
+    {
+      subjectClass: 'Vật lý',
+      classTeach: '7A',
+      teacher: 'Nguyễn Văn Thuần',
+      icon: 'https://www.besonline.in/Physics.png'
+    },
+    {
+      subjectClass: 'Vật lý',
+      classTeach: '8A',
+      teacher: 'Nguyễn Văn Thuần',
+      icon: 'https://www.besonline.in/Physics.png'
+    },
+  ];
+
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('ClassScreen')}>
       <View style={styles.container}>
@@ -32,6 +35,7 @@ const FlatClassHome = ({ navigation }) => {
       </View>
     </TouchableOpacity>
   );
+
   const [modalVisible, setModalVisible] = useState(false);
   const [text, onChangeText] = React.useState(null);
 
@@ -91,6 +95,7 @@ const TEXTBUTTON = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: width * 0.95,
     flexDirection: 'row',
     backgroundColor: '#3985f3',
     borderRadius: 5,
@@ -110,6 +115,8 @@ const styles = StyleSheet.create({
   },
   contain: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   iconClass: {
     flex: 1,
