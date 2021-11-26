@@ -3,6 +3,7 @@ import { View, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Text, Platfor
 import MyTextInput from './components/MyTextInput';
 import MyButton from './components/MyButton';
 import { RadioButton } from 'react-native-paper';
+import AnimatedLoader from "react-native-animated-loader";
 import _ from "lodash";
 
 export default class SignUpScreen extends Component {
@@ -12,7 +13,8 @@ export default class SignUpScreen extends Component {
       checked: 'teacher',
       email: "",
       name: "",
-      password: ""
+      password: "",
+      visible: false
     }
   }
 
@@ -21,7 +23,7 @@ export default class SignUpScreen extends Component {
       email: email
     })
   }, 300)
-  
+
   handleChangeName = _.debounce((name) => {
     this.setState({
       name: name
@@ -34,7 +36,8 @@ export default class SignUpScreen extends Component {
     })
   }, 300)
 
-  handleSignUp = async() => {
+  handleSignUp = async () => {
+    this.setState({ visible: true })
     if (this.state.checked == "teacher") {
       fetch("https://bkedu-backend.herokuapp.com/v1/teachers", {
         method: "POST",
@@ -48,16 +51,20 @@ export default class SignUpScreen extends Component {
           password: this.state.password
         })
       }).then(res => res.json())
-      .then(data => {
-        if (data.code == 201) {
-          Alert.alert("Thành công", "Đăng ký thành công",
-            [{
-              text: "Ok",
-              onPress: () => this.props.navigation.navigate('LoginScreen')
-            }])
-          // this.props.navigation.navigate(this.props.navigation.navigate('LoginScreen'));
-        } else Alert.alert("Email or password is wrong!");
-      }).catch(error => console.log(error));
+        .then(data => {
+          this.setState({ visible: false });
+          if (data.code == 201) {
+            Alert.alert("Thành công", "Đăng ký thành công",
+              [{
+                text: "Ok",
+                onPress: () => this.props.navigation.navigate('LoginScreen')
+              }])
+            // this.props.navigation.navigate(this.props.navigation.navigate('LoginScreen'));
+          } else Alert.alert("Email or password is wrong!");
+        }).catch(error => {
+          console.log(error)
+          this.setState({ visible: false });
+        });
     } else {
       fetch("https://bkedu-backend.herokuapp.com/v1/students", {
         method: "POST",
@@ -71,16 +78,20 @@ export default class SignUpScreen extends Component {
           password: this.state.password
         })
       }).then(res => res.json())
-      .then(data => {
-        if (data.code == 201) {
-          Alert.alert("Thành công", "Đăng ký thành công",
-            [{
-              text: "Ok",
-              onPress: () => this.props.navigation.navigate('LoginScreen')
-            }])
-          // this.props.navigation.navigate(this.props.navigation.navigate('LoginScreen'));
-        } else Alert.alert("Dữ liệu nhập của bạn không hợp lệ!");
-      }).catch(error => console.log(error));
+        .then(data => {
+          this.setState({ visible: false });
+          if (data.code == 201) {
+            Alert.alert("Thành công", "Đăng ký thành công",
+              [{
+                text: "Ok",
+                onPress: () => this.props.navigation.navigate('LoginScreen')
+              }])
+            // this.props.navigation.navigate(this.props.navigation.navigate('LoginScreen'));
+          } else Alert.alert("Dữ liệu nhập của bạn không hợp lệ!");
+        }).catch(error => {
+          console.log(error)
+          this.setState({ visible: false });
+        });
     }
   }
 
@@ -94,9 +105,9 @@ export default class SignUpScreen extends Component {
           <Text style={styles.title}>Đăng ký ngay</Text>
         </View>
         <View style={styles.loginContainer}>
-          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail}/>
-          <MyTextInput placeholder={'Họ tên'} onChangeValue={this.handleChangeName}/>
-          <MyTextInput placeholder={'Mật khẩu'} isPassword={true} onChangeValue={this.handleChangePassword}/>
+          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail} />
+          <MyTextInput placeholder={'Họ tên'} onChangeValue={this.handleChangeName} />
+          <MyTextInput placeholder={'Mật khẩu'} isPassword={true} onChangeValue={this.handleChangePassword} />
           <View style={styles.radioButtonContainer}>
             <RadioButton
               value="teacher"
@@ -111,15 +122,22 @@ export default class SignUpScreen extends Component {
             />
             <Text> Học sinh </Text>
           </View>
-          <MyButton title={'Đăng ký'} backgroundColor={'#00A9B7'} 
-          onPress={this.handleSignUp}/>
+          <MyButton title={'Đăng ký'} backgroundColor={'#00A9B7'}
+            onPress={this.handleSignUp} />
           <View style={styles.bottomText}>
             <Text style={{ color: '#B5B5B5' }}> Đã có tài khoản? </Text>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('LoginScreen')}}>
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate('LoginScreen') }}>
               <Text style={{ color: '#00A9B7' }}>Đăng nhập ngay </Text>
             </TouchableOpacity>
           </View>
         </View>
+        <AnimatedLoader
+          visible={this.state.visible}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../../assets/72659-loader-vb.json")}
+          animationStyle={styles.lottie}
+          speed={1}
+        />
       </KeyboardAvoidingView>
     )
   }
@@ -171,5 +189,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginRight: "auto",
     marginLeft: "auto"
+  },
+  lottie: {
+    width: 100,
+    height: 100
   }
 })

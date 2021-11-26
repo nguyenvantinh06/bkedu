@@ -1,58 +1,64 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput, Dimensions } from 'react-native';
-import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion-collapse-react-native';
 import Moment from "moment";
 import AddButtonComponent from "../../../components/AddButtonComponent";
 import _ from "lodash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AnimatedLoader from "react-native-animated-loader";
 import jwt from "jwt-decode";
 
 const { width, height } = Dimensions.get('screen');
 
 const ClassScreenTeacher = ({ route, navigation }) => {
-  const subject = route.params;
-
+  const [subject, setSubject] = useState(route.params);
+  const { subjectIndex } = route.params
+  const [visible, setVisible] = useState(false)
   const [contentPost, setContentPost] = useState("");
   const [contentReply, setContentReply] = useState("");
 
-  const handlerAddPost = async() => {
+  const handlerAddPost = async () => {
+    setVisible(true);
     const token = await AsyncStorage.getItem('access_token');
     fetch(`https://bkedu-backend.herokuapp.com/v1/subjects/${subject._id}/posts`, {
-        method: "PUT",
-        headers: {
-          "Accept": 'application/json',
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          content: contentPost
-        })
-      }).then(res => res.json())
+      method: "PUT",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        content: contentPost
+      })
+    }).then(res => res.json())
       .then(data => {
+        setVisible(false);
         if (data.code == 200) {
           Alert.alert("Thành công", "Đăng bài thành công",
             [{
               text: "Ok",
-              onPress: () => {setModalVisible(!modalVisible);}
+              onPress: () => { setModalVisible(!modalVisible); }
             }])
         } else Alert.alert("Đăng bài thất bại!");
       }).catch(error => console.log(error));
   }
 
-  const handlerReply = async(postId) => {
+  const handlerReply = async (postId) => {
+    setVisible(true);
     const token = await AsyncStorage.getItem('access_token');
     fetch(`https://bkedu-backend.herokuapp.com/v1/subjects/${subject._id}/posts/${postId}/reply`, {
-        method: "PUT",
-        headers: {
-          "Accept": 'application/json',
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          content: contentReply
-        })
-      }).then(res => res.json())
+      method: "PUT",
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        content: contentReply
+      })
+    }).then(res => res.json())
       .then(data => {
+        setVisible(false);
         if (data.code == 200) {
           Alert.alert("Thành công", "Trả lời thành công")
         } else Alert.alert("Trả lời thất bại!");
@@ -62,18 +68,18 @@ const ClassScreenTeacher = ({ route, navigation }) => {
   const handlerChangeContent = _.debounce((content) => {
     setContentPost(content);
   }, 200);
-  
+
   const handlerChangeReply = _.debounce((content) => {
     setContentReply(content);
   }, 200);
 
-  
+
   const renderItem = ({ item }) => (
     <View style={styles.container}>
       <View style={styles.avatarName}>
-            <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
-                style={styles.image} resizeMode={'cover'} />
-              
+        <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
+          style={styles.image} resizeMode={'cover'} />
+
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.desciptionContent}>
@@ -86,27 +92,27 @@ const ClassScreenTeacher = ({ route, navigation }) => {
             <Collapse>
               <CollapseHeader>
                 <View>
-                  <Text style={{color: "purple", marginBottom: 10,}}>{item.replies.length } {item.replies.length > 1 ? "Replies" : "Reply"}</Text>
+                  <Text style={{ color: "purple", marginBottom: 10, }}>{item.replies.length} {item.replies.length > 1 ? "Replies" : "Reply"}</Text>
                 </View>
               </CollapseHeader>
               <CollapseBody>
-              { item.replies.map((reply, index) => {
-                Moment.locale('en');
-                return (
-                  <View style={styles.avatarNameReply} key={index}>
-                    <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
+                {item.replies.map((reply, index) => {
+                  Moment.locale('en');
+                  return (
+                    <View style={styles.avatarNameReply} key={index}>
+                      <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
                         style={styles.imageReply} resizeMode={'cover'} />
-                    
-                    <View>
-                      <View style={styles.information}>
-                        <Text style={styles.nameUser}>{reply.created_by.name}</Text>
-                        <Text style={styles.time}>{Moment(reply.created_at).format('D/MM, h:mm A')}</Text>
+
+                      <View>
+                        <View style={styles.information}>
+                          <Text style={styles.nameUser}>{reply.created_by.name}</Text>
+                          <Text style={styles.time}>{Moment(reply.created_at).format('D/MM, h:mm A')}</Text>
+                        </View>
+                        <Text style={styles.reply}>{reply.content}</Text>
                       </View>
-                      <Text style={styles.reply}>{reply.content}</Text>
                     </View>
-                  </View>
-                )
-              }) }    
+                  )
+                })}
               </CollapseBody>
             </Collapse>
             <View>
@@ -121,7 +127,7 @@ const ClassScreenTeacher = ({ route, navigation }) => {
         </View>
       </View>
     </View>
-    
+
   );
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -162,6 +168,13 @@ const ClassScreenTeacher = ({ route, navigation }) => {
           </View>
         </View>
       </Modal>
+      <AnimatedLoader
+        visible={visible}
+        overlayColor="rgba(255,255,255,0.75)"
+        source={require("../../../assets/72659-loader-vb.json")}
+        animationStyle={styles.lottie}
+        speed={1}
+      />
     </SafeAreaView>
   );
 };
@@ -372,8 +385,12 @@ const styles = StyleSheet.create({
     borderColor: "#00A9B7",
     marginBottom: 5
   },
+  lottie: {
+    width: 100,
+    height: 100
+  }
 });
 
-export default  ClassScreenTeacher;
+export default ClassScreenTeacher;
 
 

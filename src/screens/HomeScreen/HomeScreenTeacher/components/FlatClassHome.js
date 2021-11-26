@@ -18,33 +18,22 @@ const FlatClassHome = ({ navigation }) => {
         "Authorization": `Bearer ${token}`
       }
     })
-    .then(res => res.json())
-    .then(data => {
-      if (data.code == 200) {
-        setSubject(data.result);
-      }
-      else navigation.navigate('LoginScreen')
-    })
-    .catch(error => console.log(error));
+      .then(res => res.json())
+      .then(data => {
+        if (data.code == 200) {
+          setSubject(data.result);
+        }
+        else navigation.navigate('LoginScreen')
+      })
+      .catch(error => console.log(error));
   })
 
-  // const DATA = [
-  //   {
-  //     subjectClass: 'Vật lý',
-  //     classTeach: '7A',
-  //     teacher: 'Nguyễn Văn Thuần',
-  //     icon: 'https://www.besonline.in/Physics.png'
-  //   },
-  //   {
-  //     subjectClass: 'Vật lý',
-  //     classTeach: '8A',
-  //     teacher: 'Nguyễn Văn Thuần',
-  //     icon: 'https://www.besonline.in/Physics.png'
-  //   },
-  // ];
-
   const renderItem = ({ item, index }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('ClassScreen', { screen: "DetailClass", params: subject[index] })}>
+    <TouchableOpacity onPress={() => navigation.navigate('ClassScreen', {
+      screen: "DetailClass",
+      params: subject[index],
+      subjectIndex: index
+    })}>
       <View style={styles.container}>
         <View style={styles.desciptionContent}>
           <Text style={styles.subjectText}>{item.name}</Text>

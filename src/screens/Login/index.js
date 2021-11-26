@@ -43,26 +43,26 @@ export default class LoginScreen extends Component {
         password: this.state.password
       })
     }).then(res => res.json())
-    .then(async data => {
-      if (data.code == 200) {
-        // this.setState({access_token: data.result.access_token, refresh_token: data.result.refresh_token});
-        this.setState({ visible: false });
-        try {
-          await AsyncStorage.setItem('access_token', data.result.access_token);
-          await AsyncStorage.setItem('refresh_token', data.result.refresh_token);
-          const user = jwt(data.result.access_token);
-          this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
-        } catch(error) {
-          console.log(error);
+      .then(async data => {
+        if (data.code == 200) {
+          // this.setState({access_token: data.result.access_token, refresh_token: data.result.refresh_token});
+          this.setState({ visible: false });
+          try {
+            await AsyncStorage.setItem('access_token', data.result.access_token);
+            await AsyncStorage.setItem('refresh_token', data.result.refresh_token);
+            const user = jwt(data.result.access_token);
+            this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          Alert.alert("Thất bại", "Email hoặc mật khẩu không chính xác!");
+          this.setState({ visible: false });
         }
-      } else {
-        Alert.alert("Thất bại", "Email hoặc mật khẩu không chính xác!");
+      }).catch(error => {
+        console.log(error);
         this.setState({ visible: false });
-      }
-    }).catch(error => {
-      console.log(error);
-      this.setState({ visible: false });
-    });
+      });
   }
 
   render() {
@@ -71,8 +71,9 @@ export default class LoginScreen extends Component {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Xin chào bạn đến với BKedu!!!</Text>
+        <View style={styles.logoContainer}>
+          {/* <Text style={styles.title}>Xin chào bạn đến với BKedu!!!</Text> */}
+          <Image source={require('../../assets/intro/intro1.png')} style={styles.logo} />
         </View>
         <View style={styles.loginContainer}>
           <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail} />
@@ -94,7 +95,7 @@ export default class LoginScreen extends Component {
           <MyButton
             title={'Đăng nhập với Google'}
             backgroundColor={'#FE6666'}
-            onPress={() => { this.props.navigation.navigate('BottomTabNavigatorStudent') }}
+            onPress={() => { Alert.alert("Oops, tính năng này chưa được phát triển"); }}
           />
           <View style={styles.bottomText}>
             <Text style={{ color: '#B5B5B5' }}> Chưa có tài khoản? </Text>
@@ -120,6 +121,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#28A490',
   },
+  logoContainer: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'flex-end'
+  },
+  logo: {
+    width: 250,
+    height: 250,
+    resizeMode: 'contain',
+    marginBottom: -20
+  },
   titleContainer: {
     flex: 1,
     paddingHorizontal: 20,
@@ -132,7 +144,7 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   loginContainer: {
-    flex: 2,
+    flex: 6,
     backgroundColor: 'white',
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
