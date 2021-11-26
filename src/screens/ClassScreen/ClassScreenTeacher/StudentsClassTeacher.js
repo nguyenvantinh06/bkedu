@@ -29,15 +29,17 @@ const DATA = [
 // );
 
 const StudentsClassScreenTeacher = () => {
-    const renderItem = ({ item }) => (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => Alert.alert('Xem thông tin cá nhân')}>
-                <Image source={{ uri: item.uri }}
-                    style={styles.image} resizeMode={'cover'} />
-                <Text style={styles.nameText}>{item.fullName}</Text>
-            </TouchableOpacity>
-        </View>
-    );
+
+  const [students, setStudents] = useState([]);
+  const renderItem = ({ item }) => (
+      <View style={styles.container}>
+          <TouchableOpacity onPress={() => Alert.alert('Xem thông tin cá nhân')}>
+              <Image source={{ uri: item.uri }}
+                  style={styles.image} resizeMode={'cover'} />
+              <Text style={styles.nameText}>{item.fullName}</Text>
+          </TouchableOpacity>
+      </View>
+  );
 
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = React.useState(null);

@@ -9,10 +9,11 @@ import jwt from "jwt-decode";
 
 const { width, height } = Dimensions.get('screen');
 
-const ClassScreenTeacher = ({ route }) => {
+const ClassScreenTeacher = ({ route, navigation }) => {
   const subject = route.params;
 
   const [contentPost, setContentPost] = useState("");
+  const [contentReply, setContentReply] = useState("");
 
   const handlerAddPost = async() => {
     const token = await AsyncStorage.getItem('access_token');
@@ -32,14 +33,38 @@ const ClassScreenTeacher = ({ route }) => {
           Alert.alert("Thành công", "Đăng bài thành công",
             [{
               text: "Ok",
-              onPress: () => setModalVisible(!modalVisible)
+              onPress: () => {setModalVisible(!modalVisible);}
             }])
         } else Alert.alert("Đăng bài thất bại!");
       }).catch(error => console.log(error));
   }
 
+  const handlerReply = async(postId) => {
+    const token = await AsyncStorage.getItem('access_token');
+    fetch(`https://bkedu-backend.herokuapp.com/v1/subjects/${subject._id}/posts/${postId}/reply`, {
+        method: "PUT",
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          content: contentReply
+        })
+      }).then(res => res.json())
+      .then(data => {
+        if (data.code == 200) {
+          Alert.alert("Thành công", "Trả lời thành công")
+        } else Alert.alert("Trả lời thất bại!");
+      }).catch(error => console.log(error));
+  }
+
   const handlerChangeContent = _.debounce((content) => {
     setContentPost(content);
+  }, 200);
+  
+  const handlerChangeReply = _.debounce((content) => {
+    setContentReply(content);
   }, 200);
 
   
@@ -58,32 +83,40 @@ const ClassScreenTeacher = ({ route }) => {
           </View>
           <Text style={styles.classTeachText}>{item.content}</Text>
           <View style={styles.replyContainer}>
-          <Collapse>
-            <CollapseHeader>
-              <View>
-                <Text style={{color: "purple", marginBottom: 10,}}>{item.replies.length } {item.replies.length > 1 ? "Replies" : "Reply"}</Text>
-              </View>
-            </CollapseHeader>
-            <CollapseBody>
-            { item.replies.map((reply, index) => {
-              Moment.locale('en');
-              return (
-                <View style={styles.avatarNameReply} key={index}>
-                  <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
-                      style={styles.imageReply} resizeMode={'cover'} />
-                  
-                  <View>
-                    <View style={styles.information}>
-                      <Text style={styles.nameUser}>{reply.created_by.name}</Text>
-                      <Text style={styles.time}>{Moment(reply.created_at).format('D/MM, h:mm A')}</Text>
-                    </View>
-                    <Text style={styles.reply}>{reply.content}</Text>
-                  </View>
+            <Collapse>
+              <CollapseHeader>
+                <View>
+                  <Text style={{color: "purple", marginBottom: 10,}}>{item.replies.length } {item.replies.length > 1 ? "Replies" : "Reply"}</Text>
                 </View>
-              )
-            }) }    
-            </CollapseBody>
-          </Collapse>
+              </CollapseHeader>
+              <CollapseBody>
+              { item.replies.map((reply, index) => {
+                Moment.locale('en');
+                return (
+                  <View style={styles.avatarNameReply} key={index}>
+                    <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
+                        style={styles.imageReply} resizeMode={'cover'} />
+                    
+                    <View>
+                      <View style={styles.information}>
+                        <Text style={styles.nameUser}>{reply.created_by.name}</Text>
+                        <Text style={styles.time}>{Moment(reply.created_at).format('D/MM, h:mm A')}</Text>
+                      </View>
+                      <Text style={styles.reply}>{reply.content}</Text>
+                    </View>
+                  </View>
+                )
+              }) }    
+              </CollapseBody>
+            </Collapse>
+            <View>
+              <View style={styles.inputContainer}>
+                <TextInput style={styles.inputClass} onChangeText={handlerChangeReply} placeholder='Trả lời...' />
+              </View>
+              <TouchableOpacity style={styles.buttonAdd} onPress={() => handlerReply(item._id)}>
+                <Text style={styles.buttonSubmitText}>Đăng</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -274,7 +307,7 @@ const styles = StyleSheet.create({
     borderColor: '#B5B5B5',
     borderRadius: 5,
     padding: 5,
-    marginVertical: 5,
+    marginVertical: 10,
   },
   inputClass: {
     flex: 1,
@@ -287,6 +320,15 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   buttonSubmit: {
+    flex: 1,
+    backgroundColor: '#00A9B7',
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginRight: 5,
+  },
+  buttonAdd: {
     flex: 1,
     backgroundColor: '#00A9B7',
     height: 40,
