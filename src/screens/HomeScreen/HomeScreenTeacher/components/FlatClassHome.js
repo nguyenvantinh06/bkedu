@@ -26,7 +26,7 @@ const FlatClassHome = ({ navigation }) => {
   useEffect(async () => {
     const token = await AsyncStorage.getItem('access_token');
     const user = jwt(token);
-    fetch(`https://bkedu-backend.herokuapp.com/v1/subjects?id=${user._id}`, {
+    fetch(`https://bkedu-backend.herokuapp.com/v1/subjects?teacher=${user._id}`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
