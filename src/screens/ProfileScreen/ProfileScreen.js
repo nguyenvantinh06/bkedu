@@ -61,7 +61,6 @@ const ProfileScreen = ({ navigation }) => {
               <TouchableOpacity style={styles.button} onPress={ async () => {
                 const keys = await AsyncStorage.getAllKeys();
                 await AsyncStorage.multiRemove(keys);
-                console.log(await AsyncStorage.getItem('access_token'));
                 navigation.navigate('LoginScreen');
               }}>
                   <Text style={styles.buttonText}>Đăng xuất</Text>

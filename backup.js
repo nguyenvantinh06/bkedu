@@ -1,59 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput, Dimensions } from 'react-native';
-import AddButtonComponent from "../../../../components/AddButtonComponent";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import jwt from "jwt-decode";
-
-const { width, height } = Dimensions.get('screen');
-
-const FlatClassHome = ({ navigation }) => {
-
-  const [subject, setSubject] = useState([]);
-
-  useEffect(async () => {
-    const token = await AsyncStorage.getItem('access_token');
-    const user = jwt(token);
-    fetch(`https://bkedu-backend.herokuapp.com/v1/subjects?id=${user._id}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.code == 200) {
-        setSubject(data.result);
-      }
-      else navigation.navigate('LoginScreen')
-    })
-    .catch(error => console.log(error));
-  })
-
-  // const DATA = [
-  //   {
-  //     subjectClass: 'Vật lý',
-  //     classTeach: '7A',
-  //     teacher: 'Nguyễn Văn Thuần',
-  //     icon: 'https://www.besonline.in/Physics.png'
-  //   },
-  //   {
-  //     subjectClass: 'Vật lý',
-  //     classTeach: '8A',
-  //     teacher: 'Nguyễn Văn Thuần',
-  //     icon: 'https://www.besonline.in/Physics.png'
-  //   },
-  // ];
-
-  const renderItem = ({ item, index }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('ClassScreen', { screen: "DetailClass", params: subject[index] })}>
-      <View style={styles.container}>
-        <View style={styles.desciptionContent}>
-          <Text style={styles.subjectText}>{item.name}</Text>
-          <Text style={styles.classTeachText}>Lớp: {item.class.name}</Text>
-          <Text style={styles.teacherText}>Giáo viên: {item.teacher.name}</Text>
-        </View>
-        <Image source={{ uri: 'https://www.besonline.in/Physics.png' }} style={styles.image} />
+// const subject = route.params;
+  // console.log(route.params);
+  
+  const renderItem = ({ item }) => (
+    <View style={styles.container}>
+      <View style={styles.desciptionContent}>
+        <Text style={styles.subjectText}>{item.post.content}</Text>
+        <Text style={styles.classTeachText}></Text>
+        <Text style={styles.teacherText}></Text>
       </View>
-    </TouchableOpacity>
+      {/* <Image source={{ uri: 'https://www.besonline.in/Physics.png' }} style={styles.image} /> */}
+    </View>
   );
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -62,12 +18,12 @@ const FlatClassHome = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.contain}>
       <FlatList
-        data={subject}
+        data={[]}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
       {/* <AddButtonComponent onPress={() => Alert.alert('Thêm Lớp học')} /> */}
-      <AddButtonComponent onPress={() => setModalVisible(true)} />
+      {/* <AddButtonComponent onPress={() => setModalVisible(true)} />
       <Modal
         animationType="slide"
         transparent={true}
@@ -96,10 +52,10 @@ const FlatClassHome = ({ navigation }) => {
             </View>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </SafeAreaView>
   );
-}
+};
 
 const TEXT = {
   fontSize: 14,
@@ -112,12 +68,13 @@ const TEXTBUTTON = {
   fontFamily: 'Roboto',
   fontWeight: 'bold'
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: width * 0.95,
     flexDirection: 'row',
-    backgroundColor: '#3985f3',
+    backgroundColor: '#fff',
     borderRadius: 5,
     marginTop: 10,
     marginHorizontal: 10,
@@ -250,5 +207,3 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 });
-
-export default FlatClassHome;

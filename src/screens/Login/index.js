@@ -13,7 +13,8 @@ export default class LoginScreen extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      visible: false
     }
   }
 
@@ -45,6 +46,7 @@ export default class LoginScreen extends Component {
     .then(async data => {
       if (data.code == 200) {
         // this.setState({access_token: data.result.access_token, refresh_token: data.result.refresh_token});
+        this.setState({ visible: false });
         try {
           await AsyncStorage.setItem('access_token', data.result.access_token);
           await AsyncStorage.setItem('refresh_token', data.result.refresh_token);
@@ -53,8 +55,14 @@ export default class LoginScreen extends Component {
         } catch(error) {
           console.log(error);
         }
-      } else Alert.alert("Thất bại", "Email hoặc mật khẩu không chính xác!");
-    }).catch(error => console.log(error));
+      } else {
+        Alert.alert("Thất bại", "Email hoặc mật khẩu không chính xác!");
+        this.setState({ visible: false });
+      }
+    }).catch(error => {
+      console.log(error);
+      this.setState({ visible: false });
+    });
   }
 
   render() {
@@ -152,5 +160,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginRight: "auto",
     marginLeft: "auto"
+  },
+  lottie: {
+    width: 100,
+    height: 100
   }
 })
