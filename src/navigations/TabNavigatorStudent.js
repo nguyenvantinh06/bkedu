@@ -95,7 +95,7 @@ const BottomTabNavigatorStudentClass = () => {
       })}>
       <TabBottomStudentClass.Screen name="Subject" component={SubjectStackNavigatorStudentScreen} options={{ title: 'Chung', headerShown: false }} />
       <TabBottomStudentClass.Screen name="AssignmentSubjectScreen" component={AssignmentSubjectStackNavigatorStudentScreen} options={{ title: 'Bài tập', headerShown: false }} />
-      <TabBottomStudentClass.Screen name="FileSubjectScreen" component={FileSubjectScreen} options={{ title: 'Tệp', headerShown: false }} />
+      <TabBottomStudentClass.Screen name="FileSubjectScreen" component={AssignmentSubmittedScreenStudent} options={{ title: 'Tệp đã nộp', headerShown: false }} />
     </TabBottomStudentClass.Navigator>
   );
 };

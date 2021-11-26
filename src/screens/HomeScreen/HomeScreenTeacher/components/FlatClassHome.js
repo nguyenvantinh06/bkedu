@@ -31,8 +31,7 @@ const FlatClassHome = ({ navigation }) => {
   const renderItem = ({ item, index }) => (
     <TouchableOpacity onPress={() => navigation.navigate('ClassScreen', {
       screen: "DetailClass",
-      params: subject[index],
-      subjectIndex: index
+      params: subject[index]
     })}>
       <View style={styles.container}>
         <View style={styles.desciptionContent}>

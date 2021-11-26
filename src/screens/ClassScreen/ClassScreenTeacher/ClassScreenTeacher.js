@@ -12,7 +12,6 @@ const { width, height } = Dimensions.get('screen');
 
 const ClassScreenTeacher = ({ route, navigation }) => {
   const [subject, setSubject] = useState(route.params);
-  const { subjectIndex } = route.params
   const [visible, setVisible] = useState(false)
   const [contentPost, setContentPost] = useState("");
   const [contentReply, setContentReply] = useState("");
