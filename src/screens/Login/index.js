@@ -132,17 +132,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: -20
   },
-  titleContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-    justifyContent: 'flex-end'
-  },
-  title: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 24
-  },
   loginContainer: {
     flex: 6,
     backgroundColor: 'white',
