@@ -79,7 +79,7 @@ export default class SignUpScreen extends Component {
               onPress: () => this.props.navigation.navigate('LoginScreen')
             }])
           // this.props.navigation.navigate(this.props.navigation.navigate('LoginScreen'));
-        } else Alert.alert("Email or password is wrong!");
+        } else Alert.alert("Dữ liệu nhập của bạn không hợp lệ!");
       }).catch(error => console.log(error));
     }
   }
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   loginContainer: {
-    flex: 3,
+    flex: 2,
     backgroundColor: 'white',
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
     // justifyContent: 'center'
   },
   radioButtonContainer: {
-    height: 20,
-    marginTop: 30,
+    height: 15,
+    marginTop: 15,
     marginRight: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row'
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: 20,
     marginRight: "auto",
     marginLeft: "auto"
   }

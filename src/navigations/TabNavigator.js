@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput, Dimensions } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -73,25 +74,26 @@ const BottomTabNavigatorTeacherClass = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'DetailClass') {
+          if (route.name == 'DetailClass') {
             iconName = 'assignment'
             return <MaterialIcons name={iconName} size={size} color={color} />;
-          } else if (route.name === 'StudentsClass') {
+          } else if (route.name == 'StudentsClass') {
             iconName = 'group'
             return <MaterialIcons name={iconName} size={size} color={color} />;
           }
-          else if (route.name === 'ExerciseStackNavigator') {
+          else if (route.name == 'ExerciseStackNavigator') {
             iconName = 'import-contacts'
             return <MaterialIcons name={iconName} size={size} color={color} />;
           }
         },
         tabBarActiveTintColor: '#00A9B7',
         tabBarInactiveTintColor: '#B5B5B5',
+        tabBarLabel: route.name == "DetailClass" ? "Chung" : route.name == "StudentsClass" ? "Học sinh" : "Bài tập"
       })}>
       <TabBottomTeacherClass.Screen
         name="DetailClass"
         component={ClassScreenTeacher}
-        options={{ headerShown: false }}
+        options={{ headerShown: false}}
       />
       <TabBottomTeacherClass.Screen
         name="StudentsClass"
