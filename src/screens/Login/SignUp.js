@@ -101,8 +101,8 @@ export default class SignUpScreen extends Component {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Đăng ký ngay</Text>
+        <View style={styles.logoContainer}>
+          <Image source={require('../../assets/intro/intro1.png')} style={styles.logo} />
         </View>
         <View style={styles.loginContainer}>
           <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail} />
@@ -148,19 +148,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#28A490',
   },
-  titleContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 30,
+  logoContainer: {
+    flex: 4,
+    alignItems: 'center',
     justifyContent: 'flex-end'
   },
-  title: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 24
+  logo: {
+    width: 250,
+    height: 250,
+    resizeMode: 'contain',
+    marginBottom: -20
   },
   loginContainer: {
-    flex: 2,
+    flex: 6,
     backgroundColor: 'white',
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,

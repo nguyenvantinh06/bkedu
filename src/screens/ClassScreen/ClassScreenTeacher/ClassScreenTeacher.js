@@ -11,7 +11,7 @@ import jwt from "jwt-decode";
 const { width, height } = Dimensions.get('screen');
 
 const ClassScreenTeacher = ({ route, navigation }) => {
-  const [subject, setSubject] = useState(route.params);
+  const subject = route.params;
   const [visible, setVisible] = useState(false)
   const [contentPost, setContentPost] = useState("");
   const [contentReply, setContentReply] = useState("");
@@ -139,8 +139,7 @@ const ClassScreenTeacher = ({ route, navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
-      <AddButtonComponent onPress={() => Alert.alert('Thêm Lớp học')} />
-      <AddButtonComponent onPress={() => setModalVisible(true)} />
+      <AddButtonComponent onPress={() => { setModalVisible(true); console.log(subject.posts); }} />
       <Modal
         animationType="slide"
         transparent={true}

@@ -54,24 +54,6 @@ export default function App() {
     //   <AppNavigator />
     // </NavigationContainer>
   )
-
-  /**Check isFirstTimeLoad App */
-  // if (!isFirstTimeLoad)
-  //   return (
-  //     <>
-  //       <StatusBar style="light" />
-  //       <Welcome onDone={handleDone} slides={slides} />
-  //     </>
-  //   );
-
-  // if (!isFirstTimeLoad)
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text style={{ fontSize: 22, fontWeight: 'bold' }}>
-  //         BKEDU
-  //       </Text>
-  //     </View>
-  //   );
 }
 
 const styles = StyleSheet.create({
