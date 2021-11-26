@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: "center",
     alignItems: 'flex-start',
+    marginHorizontal: 10,
   },
   contentContainer: {
     flex: 3,
@@ -203,7 +204,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 5,
     marginTop: 10,
-    marginHorizontal: 10,
+    marginLeft: 10,
+    // marginHorizontal: 10,
     padding: 10,
     borderColor: 'grey',
     elevation: 3,
