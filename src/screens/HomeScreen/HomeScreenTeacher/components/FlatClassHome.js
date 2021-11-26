@@ -1,41 +1,115 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput } from 'react-native';
-import { Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput, Dimensions } from 'react-native';
+import AddButtonComponent from "../../../../components/AddButtonComponent";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt from "jwt-decode";
+import DropDownPicker from 'react-native-dropdown-picker';
+import _ from "lodash";
+import { useIsFocused } from '@react-navigation/native';
 
-import CustomButton from "../../../../components/CustomButton"
-import AddButtonComponent from "../../../../components/AddButtonComponent"
-import {createClassSchema} from "../../../../components/validation"
-
-const DATA = [
-  {
-    subjectClass: 'Vật lý',
-    classTeach: '7A',
-    teacher: 'Nguyễn Văn Thuần',
-    icon: 'https://www.besonline.in/Physics.png'
-  },
-  {
-    subjectClass: 'Vật lý',
-    classTeach: '8A',
-    teacher: 'Nguyễn Văn Thuần',
-    icon: 'https://www.besonline.in/Physics.png'
-  },
-];
+const { width, height } = Dimensions.get('screen');
 
 const FlatClassHome = ({ navigation }) => {
-  const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('ClassScreen')}>
+
+  const isFocused = useIsFocused();
+
+  const [subject, setSubject] = useState([]);
+
+  const [subjectName, setSubjectName] = useState("");
+
+  const [classes, setClasses] = useState([]);
+
+  const handlerChangeSubjectName = _.debounce((name) => {
+    setSubjectName(name);
+  }, 200);
+
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem('access_token');
+    const user = jwt(token);
+    fetch(`https://bkedu-backend.herokuapp.com/v1/subjects?id=${user._id}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.code == 200) {
+        setSubject(data.result);
+      }
+      else navigation.navigate('LoginScreen')
+    })
+    .catch(error => console.log(error));
+  }, [isFocused]);
+
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem('access_token');
+    fetch(`https://bkedu-backend.herokuapp.com/v1/classes`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.code == 200) {
+        let newListClass = data.result.map((listClass) => {
+          return {
+            label: listClass.name,
+            value: listClass._id
+          }
+        });
+        setItems(newListClass);
+      }
+      else navigation.navigate('LoginScreen')
+    })
+    .catch(error => console.log(error));
+  }, [modalVisible]);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(classes);
+
+  const handlerCreateClass = async () => {
+    const token = await AsyncStorage.getItem('access_token');
+    fetch(`https://bkedu-backend.herokuapp.com/v1/subjects`, {
+        method: "POST",
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: subjectName,
+          class: value
+        })
+      }).then(res => res.json())
+      .then(data => {
+        if (data.code == 201) {
+          Alert.alert("Thành công", "Tạo môn học thành công",
+            [{
+              text: "Ok",
+              onPress: () => {setModalVisible(!modalVisible);}
+            }])
+        } else Alert.alert("Tạo môn học thất bại thất bại!");
+      }).catch(error => console.log(error));
+  }
+
+  const renderItem = ({ item, index }) => (
+    <TouchableOpacity onPress={() => navigation.navigate('ClassScreen', {
+      screen: "DetailClass",
+      params: subject[index]
+    })}>
       <View style={styles.container}>
         <View style={styles.desciptionContent}>
-          <Text style={styles.subjectText}>{item.subjectClass}</Text>
-          <Text style={styles.classTeachText}>Lớp: {item.classTeach}</Text>
-          <Text style={styles.teacherText}>{item.teacher}</Text>
+          <Text style={styles.subjectText}>{item.name}</Text>
+          <Text style={styles.classTeachText}>Lớp: {item.class.name}</Text>
+          <Text style={styles.teacherText}>Giáo viên: {item.teacher.name}</Text>
         </View>
-        <Image source={{ uri: item.icon }} style={styles.image} />
+        <Image source={{ uri: 'https://www.besonline.in/Physics.png' }} style={styles.image} />
       </View>
     </TouchableOpacity>
   );
+
   const [modalVisible, setModalVisible] = useState(false);
-  const [subjectName, setSubjectName] = useState("");
   const [className, setClassName] = useState("");
 
   function createClass(){
@@ -44,7 +118,7 @@ const FlatClassHome = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.contain}>
       <FlatList
-        data={DATA}
+        data={subject}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
@@ -69,30 +143,19 @@ const FlatClassHome = ({ navigation }) => {
               {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
               <>
               <View style={styles.inputContainer}>
-                <TextInput 
-                  style={styles.inputClass} 
-                  onChangeText={handleChange('subjectName')}
-                  onBlur={handleBlur('subjectName')}
-                  value={values.subjectName}
-                  placeholder='Tên môn học' 
-                />
-                {errors.subjectName && touched.subjectName ? 
-                  <Text style={{ color: 'red', textAlign:'center', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>{errors.subjectName}</Text> : null}
+                <TextInput style={styles.inputClass} onChangeText={handlerChangeSubjectName} placeholder='Tên môn học' />
               </View>
-            
-              <View style={styles.inputContainer}>
-                <TextInput 
-                  style={styles.inputClass} 
-                  onChangeText={handleChange('className')}
-                  onBlur={handleBlur('className')}
-                  value={values.className}
-                  placeholder='Lớp học' 
-                />
-                {errors.className && touched.className ? 
-                  <Text style={{color: 'red', marginTop: 10}}>{errors.className}</Text> : null}
-              </View>
+              <DropDownPicker
+                  open={open}
+                  value={value}
+                  items={items}
+                  setOpen={setOpen}
+                  setValue={setValue}
+                  setItems={setItems}
+                  maxHeight={130}
+              />
               <View style={styles.contentButton}>
-                <TouchableOpacity style={styles.buttonSubmit} onPress={handleSubmit}>
+                <TouchableOpacity style={styles.buttonSubmit} onPress={handlerCreateClass}>
                   <Text style={styles.buttonSubmitText}>Tạo lớp</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
@@ -124,6 +187,7 @@ const TEXTBUTTON = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: width * 0.95,
     flexDirection: 'row',
     backgroundColor: '#3985f3',
     borderRadius: 5,
@@ -143,6 +207,8 @@ const styles = StyleSheet.create({
   },
   contain: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   iconClass: {
     flex: 1,
@@ -197,7 +263,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'white',
     width: '90%',
-    height: 200,
+    height: 300,
     borderWidth: 1,
     borderColor: '#B5B5B5',
     padding: 10
@@ -210,19 +276,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor: '#B5B5B5',
     borderRadius: 5,
     padding: 5,
-    marginVertical: 5,
+    marginTop: 20,
+    marginBottom: 30,
   },
   inputClass: {
     flex: 1,
-    alignItems: 'center', 
-    justifyContent: 'center'
+    height: 40
   },
   contentButton: {
     flex: 1,

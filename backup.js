@@ -1,43 +1,24 @@
-import React, { useState } from "react";
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Dimensions, TouchableOpacity, Image, TextInput } from "react-native";
-
-const { width, height } = Dimensions.get('screen')
-
-
-
-const FlatClassHome = ({ navigation }) => {
-  const DATA = [
-    {
-      subjectClass: 'Vật lý',
-      classTeach: '7A',
-      teacher: 'Nguyễn Văn Thuần',
-      icon: 'https://www.besonline.in/Physics.png'
-    },
-    {
-      subjectClass: 'Vật lý',
-      classTeach: '8A',
-      teacher: 'Nguyễn Văn Thuần',
-      icon: 'https://www.besonline.in/Physics.png'
-    },
-  ];
-
+// const subject = route.params;
+  // console.log(route.params);
+  
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigatorStudentClass')}>
-      <View style={styles.container}>
-        <View style={styles.desciptionContent}>
-          <Text style={styles.subjectText}>{item.subjectClass}</Text>
-          <Text style={styles.classTeachText}>Lớp: {item.classTeach}</Text>
-          <Text style={styles.teacherText}>{item.teacher}</Text>
-        </View>
-        <Image source={{ uri: item.icon }} style={styles.image} />
+    <View style={styles.container}>
+      <View style={styles.desciptionContent}>
+        <Text style={styles.subjectText}>{item.post.content}</Text>
+        <Text style={styles.classTeachText}></Text>
+        <Text style={styles.teacherText}></Text>
       </View>
-    </TouchableOpacity>
+      {/* <Image source={{ uri: 'https://www.besonline.in/Physics.png' }} style={styles.image} /> */}
+    </View>
   );
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [text, onChangeText] = React.useState(null);
 
   return (
     <SafeAreaView style={styles.contain}>
       <FlatList
-        data={DATA}
+        data={[]}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
@@ -87,12 +68,13 @@ const TEXTBUTTON = {
   fontFamily: 'Roboto',
   fontWeight: 'bold'
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: width * 0.95,
     flexDirection: 'row',
-    backgroundColor: '#3985f3',
+    backgroundColor: '#fff',
     borderRadius: 5,
     marginTop: 10,
     marginHorizontal: 10,
@@ -225,5 +207,3 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 });
-
-export default FlatClassHome;

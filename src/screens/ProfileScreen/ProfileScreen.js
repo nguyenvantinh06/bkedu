@@ -1,56 +1,72 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button, Alert, Image } from "react-native";
-import { Avatar } from "react-native-elements"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt from "jwt-decode";
+import { useIsFocused } from "@react-navigation/native";
 
 const ProfileScreen = ({ navigation }) => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("");
+    // const isVisible = useIsFocused();
+
+    useEffect(async () => {
+        const token = await AsyncStorage.getItem('access_token');
+        const user = jwt(token);
+        fetch(`https://bkedu-backend.herokuapp.com/v1/${(user.role).toLowerCase()}s/${user._id}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.code == 200) {
+                    setName(data.result.name);
+                    setEmail(data.result.email);
+                    setPhone(data.result.phone_number);
+                }
+                else navigation.navigate('LoginScreen')
+            })
+            .catch(error => console.log(error));
+    }, [email]);
     return (
         <View style={styles.container}>
             <View style={styles.avatarName}>
                 <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' }}
                     style={styles.image} resizeMode={'cover'} />
-                <View style={{ paddingLeft: 20 }}>
-                    <Text style={{ fontSize: 18, marginHorizontal: 20 }}>Nguyễn Văn Tĩnh</Text>
-                    <Text style={{ fontSize: 14, marginHorizontal: 20 }}>23/03/2000</Text>
-                </View>
             </View>
             <View style={styles.ContentContain}>
                 <Text style={styles.text}>Email:</Text>
                 <View style={styles.boxEmail}>
-                    <Text style={{ fontSize: 14, paddingLeft: 10 }}>nguyenvantinh06@gmail.com</Text>
+                    <Text style={{ fontSize: 14, paddingLeft: 10 }}>{email}</Text>
                 </View>
             </View>
             <View style={styles.ContentContain}>
-                <Text style={styles.text}>Mật khẩu:</Text>
+                <Text style={styles.text}>Họ và tên</Text>
                 <View style={styles.box}>
-                    <Text style={{ fontSize: 14, paddingLeft: 10 }}>**********</Text>
+                    <Text style={{ fontSize: 14, paddingLeft: 10 }}>{name}</Text>
                 </View>
             </View>
             <View style={styles.ContentContain}>
                 <Text style={styles.text}>Số điện thoại:</Text>
                 <View style={styles.box}>
-                    <Text style={{ fontSize: 14, paddingLeft: 10 }}>0123456789</Text>
+                    <Text style={{ fontSize: 14, paddingLeft: 10 }}>{phone}</Text>
                 </View>
             </View>
             <View style={styles.buttonContain}>
                 <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Change button pressed')}>
                     <Text style={styles.buttonText}>Chỉnh sửa</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
+                <TouchableOpacity style={styles.button} onPress={async () => {
+                    const keys = await AsyncStorage.getAllKeys();
+                    await AsyncStorage.multiRemove(keys);
+                    navigation.navigate('LoginScreen');
+                }}>
                     <Text style={styles.buttonText}>Đăng xuất</Text>
                 </TouchableOpacity>
             </View>
         </View>
-    );
-
-    return (
-        <SafeAreaView style={styles.contain}>
-            <FlatList
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
-            />
-
-        </SafeAreaView>
     );
 }
 
@@ -122,9 +138,9 @@ const styles = StyleSheet.create({
 
     },
     image: {
-        width: 70,
-        height: 70,
-        borderRadius: 70 / 2,
+        width: 90,
+        height: 90,
+        borderRadius: 90 / 2,
         overflow: "hidden",
         borderWidth: 2,
         borderColor: "#00A9B7",

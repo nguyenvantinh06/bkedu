@@ -93,19 +93,9 @@ const BottomTabNavigatorStudentClass = () => {
         tabBarActiveTintColor: '#00A9B7',
         tabBarInactiveTintColor: '#B5B5B5',
       })}>
-      <TabBottomStudentClass.Screen name="Subject" component={SubjectStackNavigatorStudentScreen} options={{
-        title: 'Chung', headerStyle: {
-          backgroundColor: '#28A490',
-        },
-        headerTintColor: "white",
-        headerBackTitle: "Back",
-        headerTitleAlign: "center",
-        headerShown: false,
-        headerRight: () => <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
-      }}
-      />
+      <TabBottomStudentClass.Screen name="Subject" component={SubjectStackNavigatorStudentScreen} options={{ title: 'Chung', headerShown: false }} />
       <TabBottomStudentClass.Screen name="AssignmentSubjectScreen" component={AssignmentSubjectStackNavigatorStudentScreen} options={{ title: 'Bài tập', headerShown: false }} />
-      <TabBottomStudentClass.Screen name="FileSubjectScreen" component={FileSubjectStackNavigatorStudentScreen} options={{ title: 'Tệp', headerShown: false }} />
+      <TabBottomStudentClass.Screen name="FileSubjectScreen" component={AssignmentSubmittedScreenStudent} options={{ title: 'Tệp đã nộp', headerShown: false }} />
     </TabBottomStudentClass.Navigator>
   );
 };

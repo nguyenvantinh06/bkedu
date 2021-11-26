@@ -6,7 +6,9 @@ const Slide = ({ item }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.slide, { backgroundColor }]}>
-      <Image style={styles.imageIntro} source={item.image} />
+      <View style={styles.circle}>
+        <Image style={styles.imageIntro} source={item.image}/> 
+      </View>
       <Text style={styles.text}>{desc}</Text>
       </View>
     </View>
@@ -19,13 +21,11 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems: 'center',
     justifyContent: 'center',
-    //justifyContent: 'space-around',
   },
   slide: {
     width,
     height,
     justifyContent: 'center',
-    // justifyContent: 'space-around',
     alignItems: 'center',
   },
   text: {
@@ -34,9 +34,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   imageIntro:{
-    bottom: 20,
-    resizeMode: 'contain'
-  }
+    width: 240,
+    height: 235,
+    zIndex: 1
+  },
+  circle: {
+    width: 248,
+    height: 248,
+    borderRadius: 248 / 2,
+    backgroundColor: "white",
+    marginBottom: 30
+  },
 });
 
 export default Slide;

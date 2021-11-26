@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, StyleSheet, FlatList, Text, Dimensions } from 'react-native';
 import Indicators from './Indicators';
 import Slide from './Slide';
+import { Icon } from "react-native-elements";
 
 const Welcome = ({ navigation }) => {
 

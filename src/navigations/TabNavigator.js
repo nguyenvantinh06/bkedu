@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity, Modal, Image, TextInput, Dimensions } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -73,68 +74,35 @@ const BottomTabNavigatorTeacherClass = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'DetailClass') {
+          if (route.name == 'DetailClass') {
             iconName = 'assignment'
             return <MaterialIcons name={iconName} size={size} color={color} />;
-          } else if (route.name === 'StudentsClass') {
+          } else if (route.name == 'StudentsClass') {
             iconName = 'group'
             return <MaterialIcons name={iconName} size={size} color={color} />;
           }
-          else if (route.name === 'ExerciseStackNavigator') {
+          else if (route.name == 'ExerciseStackNavigator') {
             iconName = 'import-contacts'
             return <MaterialIcons name={iconName} size={size} color={color} />;
           }
         },
         tabBarActiveTintColor: '#00A9B7',
         tabBarInactiveTintColor: '#B5B5B5',
+        tabBarLabel: route.name == "DetailClass" ? "Chung" : route.name == "StudentsClass" ? "Học sinh" : "Bài tập"
       })}>
       <TabBottomTeacherClass.Screen
         name="DetailClass"
         component={ClassScreenTeacher}
-        options={{
-          title: 'Chi tiết',
-          headerStyle: {
-            backgroundColor: '#28A490'
-          },
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            textAlign: 'center'
-          },
-          headerRight: () => <Ionicons style={{ right: 10 }} name="notifications" size={24} color="white" />
-        }}
+        options={{ headerShown: false}}
       />
       <TabBottomTeacherClass.Screen
         name="StudentsClass"
         component={StudentsClassScreenTeacher}
-        options={{
-          title: 'Danh sách học sinh',
-          headerStyle: {
-            backgroundColor: '#28A490'
-          },
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            textAlign: 'center'
-          },
-        }} />
+        options={{ headerShown: false }} />
       <TabBottomTeacherClass.Screen
         name="ExerciseStackNavigator"
         component={ExerciseStackNavigator}
-        options={{
-          title: 'Bài tập',
-          headerStyle: {
-            backgroundColor: '#28A490'
-          },
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            textAlign: 'center'
-          },
-        }} />
+        options={{ headerShown: false }} />
     </TabBottomTeacherClass.Navigator>
   );
 };

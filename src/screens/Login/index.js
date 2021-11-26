@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Text, Platform, Image, Alert, TextInput } from 'react-native';
+import { View, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Text, Platform, Image, Alert, TextInput, ScrollView } from 'react-native';
 import MyTextInput from './components/MyTextInput';
 import MyButton from './components/MyButton';
 import _ from "lodash";
 import jwt from "jwt-decode";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AnimatedLoader from "react-native-animated-loader";
 
 export default class LoginScreen extends Component {
 
@@ -12,8 +14,7 @@ export default class LoginScreen extends Component {
     this.state = {
       email: "",
       password: "",
-      access_token: "",
-      refresh_token: ""
+      visible: false
     }
   }
 
@@ -29,7 +30,8 @@ export default class LoginScreen extends Component {
     })
   }, 300)
 
-  handleLogin = async() => {
+  handleLogin = async () => {
+    this.setState({ visible: true })
     fetch("https://bkedu-backend.herokuapp.com/v1/auth", {
       method: "POST",
       headers: {
@@ -41,13 +43,26 @@ export default class LoginScreen extends Component {
         password: this.state.password
       })
     }).then(res => res.json())
-    .then(data => {
-      if (data.code == 200) {
-        this.setState({access_token: data.result.access_token, refresh_token: data.result.refresh_token});
-        const user = jwt(data.result.access_token);
-        this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
-      } else Alert.alert("Email or password is wrong!");
-    })
+      .then(async data => {
+        if (data.code == 200) {
+          // this.setState({access_token: data.result.access_token, refresh_token: data.result.refresh_token});
+          this.setState({ visible: false });
+          try {
+            await AsyncStorage.setItem('access_token', data.result.access_token);
+            await AsyncStorage.setItem('refresh_token', data.result.refresh_token);
+            const user = jwt(data.result.access_token);
+            this.props.navigation.navigate(user.role == "Student" ? "BottomTabNavigatorStudent" : "BottomTabNavigatorTeacher");
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          Alert.alert("Thất bại", "Email hoặc mật khẩu không chính xác!");
+          this.setState({ visible: false });
+        }
+      }).catch(error => {
+        console.log(error);
+        this.setState({ visible: false });
+      });
   }
 
   render() {
@@ -57,10 +72,11 @@ export default class LoginScreen extends Component {
         style={styles.container}
       >
         <View style={styles.logoContainer}>
+          {/* <Text style={styles.title}>Xin chào bạn đến với BKedu!!!</Text> */}
           <Image source={require('../../assets/intro/intro1.png')} style={styles.logo} />
         </View>
         <View style={styles.loginContainer}>
-          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail}/>
+          <MyTextInput placeholder={'Email'} onChangeValue={this.handleChangeEmail} />
           <MyTextInput placeholder={'Mật khẩu'} isPassword={true} onChangeValue={this.handleChangePassword} />
           <TouchableOpacity
             style={styles.forgotPasswordContainer}
@@ -79,15 +95,22 @@ export default class LoginScreen extends Component {
           <MyButton
             title={'Đăng nhập với Google'}
             backgroundColor={'#FE6666'}
-            onPress={() => { this.props.navigation.navigate('BottomTabNavigatorStudent') }}
+            onPress={() => { Alert.alert("Oops, tính năng này chưa được phát triển"); }}
           />
+          <View style={styles.bottomText}>
+            <Text style={{ color: '#B5B5B5' }}> Chưa có tài khoản? </Text>
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate('SignUpScreen') }}>
+              <Text style={{ color: '#00A9B7' }}>Đăng ký ngay </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.bottomText}>
-          <Text style={{ color: '#B5B5B5' }}> Chưa có tài khoản? </Text>
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('SignUpScreen') }}>
-            <Text style={{ color: '#00A9B7' }}>Đăng ký ngay </Text>
-          </TouchableOpacity>
-        </View>
+        <AnimatedLoader
+          visible={this.state.visible}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../../assets/72659-loader-vb.json")}
+          animationStyle={styles.lottie}
+          speed={1}
+        />
       </KeyboardAvoidingView>
     )
   }
@@ -96,7 +119,7 @@ export default class LoginScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#28A490'
+    backgroundColor: '#28A490',
   },
   logoContainer: {
     flex: 4,
@@ -109,18 +132,31 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: -20
   },
+  titleContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+    justifyContent: 'flex-end'
+  },
+  title: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 24
+  },
   loginContainer: {
     flex: 6,
     backgroundColor: 'white',
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
+    // paddingHorizontal: 20,
+    // paddingVertical: 20
     // alignItems: 'center',
     // justifyContent: 'center'
   },
   forgotPasswordContainer: {
     height: 20,
     marginTop: 10,
-    marginRight: 10,
+    marginRight: 15,
     alignItems: 'flex-end',
   },
   forgotPassword: {
@@ -132,11 +168,13 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   bottomText: {
-    flex: 0.5,
-    paddingBottom: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 15,
+    marginRight: "auto",
+    marginLeft: "auto"
+  },
+  lottie: {
+    width: 100,
+    height: 100
   }
 })
