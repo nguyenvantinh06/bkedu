@@ -3,12 +3,25 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, Alert, TouchableOpacity
 import AddButtonComponent from "../../../../components/AddButtonComponent";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt from "jwt-decode";
+import DropDownPicker from 'react-native-dropdown-picker';
+import _ from "lodash";
+import { useIsFocused } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('screen');
 
 const FlatClassHome = ({ navigation }) => {
 
+  const isFocused = useIsFocused();
+
   const [subject, setSubject] = useState([]);
+
+  const [subjectName, setSubjectName] = useState("");
+
+  const [classes, setClasses] = useState([]);
+
+  const handlerChangeSubjectName = _.debounce((name) => {
+    setSubjectName(name);
+  }, 200);
 
   useEffect(async () => {
     const token = await AsyncStorage.getItem('access_token');
@@ -18,15 +31,67 @@ const FlatClassHome = ({ navigation }) => {
         "Authorization": `Bearer ${token}`
       }
     })
-      .then(res => res.json())
+    .then(res => res.json())
+    .then(data => {
+      if (data.code == 200) {
+        setSubject(data.result);
+      }
+      else navigation.navigate('LoginScreen')
+    })
+    .catch(error => console.log(error));
+  }, [isFocused]);
+
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem('access_token');
+    fetch(`https://bkedu-backend.herokuapp.com/v1/classes`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.code == 200) {
+        let newListClass = data.result.map((listClass) => {
+          return {
+            label: listClass.name,
+            value: listClass._id
+          }
+        });
+        setItems(newListClass);
+      }
+      else navigation.navigate('LoginScreen')
+    })
+    .catch(error => console.log(error));
+  }, [modalVisible]);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(classes);
+
+  const handlerCreateClass = async () => {
+    const token = await AsyncStorage.getItem('access_token');
+    fetch(`https://bkedu-backend.herokuapp.com/v1/subjects`, {
+        method: "POST",
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: subjectName,
+          class: value
+        })
+      }).then(res => res.json())
       .then(data => {
-        if (data.code == 200) {
-          setSubject(data.result);
-        }
-        else navigation.navigate('LoginScreen')
-      })
-      .catch(error => console.log(error));
-  })
+        if (data.code == 201) {
+          Alert.alert("Thành công", "Tạo môn học thành công",
+            [{
+              text: "Ok",
+              onPress: () => {setModalVisible(!modalVisible);}
+            }])
+        } else Alert.alert("Tạo môn học thất bại thất bại!");
+      }).catch(error => console.log(error));
+  }
 
   const renderItem = ({ item, index }) => (
     <TouchableOpacity onPress={() => navigation.navigate('ClassScreen', {
@@ -68,13 +133,19 @@ const FlatClassHome = ({ navigation }) => {
           <View style={styles.modalView}>
             <View style={styles.contentAddClass}>
               <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Tên môn học' />
+                <TextInput style={styles.inputClass} onChangeText={handlerChangeSubjectName} placeholder='Tên môn học' />
               </View>
-              <View style={styles.inputContainer}>
-                <TextInput style={styles.inputClass} onChangeText={onChangeText} value={text} placeholder='Lớp học' />
-              </View>
+              <DropDownPicker
+                  open={open}
+                  value={value}
+                  items={items}
+                  setOpen={setOpen}
+                  setValue={setValue}
+                  setItems={setItems}
+                  maxHeight={130}
+              />
               <View style={styles.contentButton}>
-                <TouchableOpacity style={styles.buttonSubmit} onPress={() => Alert.alert('Đã tạo lớp thành công')}>
+                <TouchableOpacity style={styles.buttonSubmit} onPress={handlerCreateClass}>
                   <Text style={styles.buttonSubmitText}>Tạo lớp</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonCancel} onPress={() => setModalVisible(!modalVisible)}>
@@ -179,7 +250,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'white',
     width: '90%',
-    height: 200,
+    height: 300,
     borderWidth: 1,
     borderColor: '#B5B5B5',
     padding: 10
@@ -192,17 +263,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor: '#B5B5B5',
     borderRadius: 5,
     padding: 5,
-    marginVertical: 5,
+    marginTop: 20,
+    marginBottom: 30,
   },
   inputClass: {
     flex: 1,
+    height: 40
   },
   contentButton: {
     flex: 1,
