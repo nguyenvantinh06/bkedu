@@ -46,13 +46,16 @@ export default function App() {
   // )
 
   return (
+    // <>
+    //   <StatusBar style="light" />
+    //   <ClassTeacher />
+    // </>
     <>
-      <StatusBar style="light" />
-      <ClassTeacher />
+    <StatusBar style="light" />
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
     </>
-    // <NavigationContainer>
-    //   <AppNavigator />
-    // </NavigationContainer>
   )
 }
 
