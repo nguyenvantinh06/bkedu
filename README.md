@@ -53,11 +53,17 @@ Current version: 1.0.0
 Download at folder: \Release
 
 ## Technology used
+
 Language: Javascript
+
 Frontend: React Native
+
 Backend: NodeJs (ExpressJs)
+
 Database: MongoDB (Mongo Atlas)
+
 Server deploy: Heroku
+
 Server stores files and images: Cloudinary
 
 ## Team member
