@@ -10,7 +10,7 @@ Android: Android 4.0+ (best with 8.1+)
 
 ## Some Screenshots
 
-<div style="display: flex; justify-content: center">
+<div style="display: flex; justify-content: center; flex-direction: row;">
   <p align="center">
 <img src="Screenshots/Intro1.PNG" width="400" height="720">
 </p>
