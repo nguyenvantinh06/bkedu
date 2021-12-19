@@ -1,6 +1,7 @@
 # BKEDU Project HCMUT-18
 
 ## About the project
+
 Application to support online teaching and learning for students and teachers.
 
 ## System requirements
@@ -62,9 +63,13 @@ Server stores files and images: Cloudinary
 ## Team member
 
 [@nguyenvantinh06](https://github.com/nguyenvantinh06)
+
 [@PeterNguyen-BK](https://github.com/PeterNguyen-BK)
+
 [@li-truong](https://github.com/li-truong)
+
 [@skylie628](https://github.com/skylie628)
 
 ## Disclamer
+
 This is a team project, not a commercial product. The project is still in development and not fully functional yet.
