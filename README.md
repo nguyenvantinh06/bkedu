@@ -14,36 +14,36 @@ Android: Android 4.0+ (best with 8.1+)
 <img src="Screenshots/Intro1.PNG" width="480" height="270">
 </p>
 <p align="center">
-<img src="Screenshots/Intro2.png" width="480" height="270">
+<img src="Screenshots/Intro2.PNG" width="480" height="270">
 </p>
 <p align="center">
-<img src="Screenshots/Login.png" width="480" height="270">
+<img src="Screenshots/Login.PNG" width="480" height="270">
 </p>
 <p align="center">
-<img src="Screenshots/Signup.png" width="480" height="270">
+<img src="Screenshots/Signup.PNG" width="480" height="270">
 </p>
 <p align="center">
-<img src="Screenshots/Dashboardteacher.png" width="480" height="270">
+<img src="Screenshots/Dashboardteacher.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Dashboardteacheradd.png" width="480" height="270">
+<img src="Screenshots/Dashboardteacheradd.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Detail.png" width="480" height="270">
+<img src="Screenshots/Detail.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Detail2.png" width="480" height="270">
+<img src="Screenshots/Detail2.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Add.png" width="480" height="270">
+<img src="Screenshots/Add.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Add2.png" width="480" height="270">
+<img src="Screenshots/Add2.PNG" width="400" height="720">
 <p align="center">
-<img src="Screenshots/Exercise.png" width="480" height="270">
+<img src="Screenshots/Exercise.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Exercise2.png" width="480" height="270">
+<img src="Screenshots/Exercise2.PNG" width="400" height="720">
 </p>
 
 ## Download and installing
