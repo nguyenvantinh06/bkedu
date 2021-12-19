@@ -11,7 +11,7 @@ Android: Android 4.0+ (best with 8.1+)
 ## Some Screenshots
 
 <p align="center">
-<img src="Screenshots/Intro1.png" width="480" height="270">
+<img src="Screenshots/Intro1.PNG" width="480" height="270">
 </p>
 <p align="center">
 <img src="Screenshots/Intro2.png" width="480" height="270">
