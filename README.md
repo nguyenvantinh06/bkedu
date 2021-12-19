@@ -10,17 +10,29 @@ Android: Android 4.0+ (best with 8.1+)
 
 ## Some Screenshots
 
-<p align="center">
-<img src="Screenshots/Intro1.PNG" width="480" height="270">
+<div style="display: flex; justify-content: center">
+  <p align="center">
+<img src="Screenshots/Intro1.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Intro2.PNG" width="480" height="270">
+<img src="Screenshots/Intro2.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Login.PNG" width="480" height="270">
+<img src="Screenshots/Login.PNG" width="400" height="720">
+</p>
+</div>
+
+<p align="center">
+<img src="Screenshots/Intro1.PNG" width="400" height="720">
 </p>
 <p align="center">
-<img src="Screenshots/Signup.PNG" width="480" height="270">
+<img src="Screenshots/Intro2.PNG" width="400" height="720">
+</p>
+<p align="center">
+<img src="Screenshots/Login.PNG" width="400" height="720">
+</p>
+<p align="center">
+<img src="Screenshots/Signup.PNG" width="400" height="720">
 </p>
 <p align="center">
 <img src="Screenshots/Dashboardteacher.PNG" width="400" height="720">
